@@ -15,7 +15,10 @@ try:
 except ImportError:
     # キャッシュ機能を無効化
     cache_manager = None
-    cached_result = lambda func: func
+    def cached_result(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 
 # Streamlitのインポート（条件付き）
 try:
