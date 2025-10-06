@@ -10,7 +10,11 @@ import aiohttp
 import json
 from functools import lru_cache
 from typing import Dict, List, Optional, Any
-from .cache_manager import cache_manager, cached_result
+try:
+    from .cache_manager import cache_manager, cached_result
+except ImportError:
+    # 相対インポートが失敗した場合の代替
+    from data_access.cache_manager import cache_manager, cached_result
 
 # Streamlitのインポート（条件付き）
 try:
@@ -1386,3 +1390,4 @@ class NotionClient:
 
 # グローバルインスタンス
 notion_client = NotionClient()
+
