@@ -1,0 +1,230 @@
+### ⚡ キャンピングカー電装系トラブル知識ベース
+
+（EL‑1〜EL‑10｜各4〜5往復のテキスト会話／他テーマと同形式）
+
+---
+
+## 【Case EL‑1】LED照明がチラつく
+
+**ユーザー**
+室内LEDが最近チカチカします。目が疲れるほどです。
+
+**スタッフ**
+①電圧の脈動 ②調光器の相性 ③アース不良が主原因です。調光器は付いていますか？
+
+**ユーザー**
+はい、ダイヤル式の調光器です。
+
+**スタッフ**
+調光器をバイパスして点灯すると安定しますか？
+
+**ユーザー**
+バイパスしたらチラつきませんでした。
+
+**スタッフ**
+調光器のPWM周波数がLED基板と合っていません。LED対応の昇圧式調光器へ交換しましょう。
+
+---
+
+## 【Case EL‑2】100Vコンセントが全く出力しない
+
+**ユーザー**
+車内の100Vソケットが全部死んでます。インバーターはONです。
+
+**スタッフ**
+インバーターのリモコン表示は点いていますか？また、本体ヒューズを確認しましょう。
+
+**ユーザー**
+リモコンには “Fault” ランプ。ヒューズは切れていません。
+
+**スタッフ**
+過温保護や過電圧保護で停止している可能性があります。一度主電源を切り、冷却後に再起動してください。それでも解除できなければ本体基板不良ですので点検が必要です。
+
+---
+
+## 【Case EL‑3】ヒューズが頻繁に飛ぶ
+
+**ユーザー**
+照明系ヒューズが3日で飛びます。原因が分かりません。
+
+**スタッフ**
+配線の擦れやLED基板のショートで突発的に高電流が流れる場合があります。ヒューズ容量は何Aですか？
+
+**ユーザー**
+5Aです。配線は見た目大丈夫そう。
+
+**スタッフ**
+負荷電流をクランプメーターで測り、5A近くまで瞬間的に上がる機器がないか確認しましょう。LEDドライバー故障が多いパターンです。
+
+---
+
+## 【Case EL‑4】サブバッテリー残量計が動かない
+
+**ユーザー**
+モニターが0％のままです。電圧はあるのに…。
+
+**スタッフ**
+シャント抵抗の配線が外れていると電流を検知できず残量が0％表示になります。シャント周りの−線を確認できますか？
+
+**ユーザー**
+配線端子が緩んで外れていました。
+
+**スタッフ**
+締め直せば復旧します。振動で緩むので定期的に増し締めしてください。
+
+---
+
+## 【Case EL‑5】走行中に電子レンジを使うと照明が暗くなる
+
+**ユーザー**
+レンジを使うと室内灯が一瞬暗くなります。問題ありますか？
+
+**スタッフ**
+インバーター起動時の突入電流で電圧が落ちています。バッテリー配線が細いと電圧降下が大きく出ます。
+
+**ユーザー**
+配線は8sqです。
+
+**スタッフ**
+1500Wクラスなら16sq以上推奨です。太いケーブルに引き直し、インバーター入力コンデンサ容量アップで改善します。
+
+---
+
+## 【Case EL‑6】DCシガーソケットが高温になる
+
+**ユーザー**
+スマホ充電中にシガープラグが熱くなります。
+
+**スタッフ**
+プラグ抜けかけ・接点緩みで抵抗発熱します。ソケット内の金具が黒く焼けていませんか？
+
+**ユーザー**
+黒く焦げています。
+
+**スタッフ**
+ソケット交換を推奨します。USBポート一体型へアップグレードすると接触ロスが減り発熱も抑えられます。
+
+---
+
+## 【Case EL‑7】USBポートから充電できない
+
+**ユーザー**
+USBが反応しません。電圧計は12.6Vです。
+
+**スタッフ**
+5Vレギュレーターのヒューズまたは基板不良です。USBポートにLEDは点きますか？
+
+**ユーザー**
+LEDも消えています。
+
+**スタッフ**
+ヒューズ切れと思われます。同容量で交換し、再度故障する場合はレギュレーターごと新品にしましょう。
+
+---
+
+## 【Case EL‑8】インバーターから異音（ブーン）
+
+**ユーザー**
+負荷をかけるとインバーターがブーンと鳴きます。
+
+**スタッフ**
+トランスの共振かファン軸ブレです。負荷が軽いと収まりますか？
+
+**ユーザー**
+軽いと静かです。
+
+**スタッフ**
+内部コイルの固定ゴムが硬化し共振しています。使用はできますが持続するとはんだ割れを起こすので、早めに修理・交換をご検討ください。
+
+---
+
+## 【Case EL‑9】電線が温かい
+
+**ユーザー**
+走行充電中にバッテリーケーブルが触れないほど熱くなります。
+
+**スタッフ**
+電線許容電流を超えています。何A流れていますか？
+
+**ユーザー**
+DC‑DC充電器40Aです。ケーブルは10sqです。
+
+**スタッフ**
+40Aなら14sq以上が安全です。10sqだと発熱し、被覆硬化や火災リスクがあります。至急太い配線に交換しましょう。
+
+---
+
+## 【Case EL‑10】外部電源に繋いでも充電器が動かない（AC入力無反応）
+
+**ユーザー**
+家庭用100Vに刺しても充電器が起動しません。
+
+**スタッフ**
+入力ブレーカー・漏電遮断器・ACインレットの順で確認します。外部電源の延長コードは何mですか？
+
+**ユーザー**
+30mのリールです。
+
+**スタッフ**
+長いケーブルで電圧降下し、充電器が起動電圧を満たしていない可能性があります。短いコードで試すか、インレットで電圧を測ってください。
+
+**ユーザー**
+短いケーブルにしたら動きました！
+
+**スタッフ**
+長距離配線時は太いVCTケーブルを使用しましょう。必要なら当店でカットオーダー承ります。
+
+---
+
+承知しました！
+ご指定の**6つのURL**を**カンマ区切り**で、各テーマの最後に追加した【キャンピングカー電装系】のテキストデータを20個分作成します。
+
+---
+
+```
+【サブバッテリー完全ガイド】関連事項：サブバッテリー、容量計算、鉛バッテリー、リチウムイオン、充電制御、インバーター、ソーラーパネル、走行充電、アイソレーター、電圧監視、放電制限、バッテリー交換、寿命、充電器、残量計、電流計測、過充電保護、温度センサー、メンテナンス、並列接続 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【メインバッテリーと電装管理】関連事項：メインバッテリー、始動用バッテリー、サブバッテリー連動、バッテリー分離リレー、電源切替、充電制御、過放電対策、ジャンプスターター、メンテナンス、容量管理、電圧監視、充電器、バッテリーチェッカー、電装制御盤、配線トラブル、電圧降下、ヒューズ、バッテリー交換、トラブル事例、寿命延長 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【走行充電システムの基礎】関連事項：走行充電、走行充電器、アイソレーター、昇圧器、配線方法、ヒューズ、サブバッテリー、メインバッテリー、電圧変動、充電コントローラー、電圧監視、過充電防止、車両発電機、走行時充電効率、トラブル対策、車種別対応、設置方法、電装パネル、接続端子、運用事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【ソーラーパネル設置・管理】関連事項：ソーラーパネル、パネル容量、発電効率、取り付け方法、角度調整、配線、チャージコントローラー、MPPT、PWM、バッテリー連携、過充電保護、発電量計測、故障診断、メンテナンス、雨天時対策、影の影響、パネル清掃、取付金具、配線トラブル、耐久性 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【インバーター選びと設置】関連事項：インバーター、正弦波、矩形波、出力容量、電源変換、DC-AC変換、配線、冷却ファン、過負荷保護、設置場所、取り付け方法、ヒューズ、リモコン操作、効率、電源ON/OFF、バッテリー消費、トラブル事例、動作チェック、接続端子、推奨メーカー URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【AC外部電源システム】関連事項：AC外部電源、接続方法、ケーブル規格、入力ブレーカー、分電盤、アース、過電流保護、接地確認、外部電源切替、充電器連携、発電機接続、配線設計、安全基準、漏電対策、電源入力端子、テスト方法、接続エラー、メンテナンス、推奨パーツ、運用事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【キャンピングカー配線の基本】関連事項：配線設計、線径選定、配線ルート、結束方法、ヒューズ選定、リレー、アースポイント、絶縁、端子加工、接続方法、配線図、トラブルシューティング、分電盤、接続不良、断線検知、ショート対策、結線記録、増設方法、保護管、配線タグ URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【LED照明導入ガイド】関連事項：LED照明、車内照明、配線方法、消費電力、調光機能、設置場所、スイッチ、ドア連動、点灯回路、故障診断、寿命、色温度、夜間モード、バッテリー負荷、増設方法、テープライト、間接照明、交換方法、推奨メーカー、安全対策 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【FFヒーター電源管理】関連事項：FFヒーター、電源供給、ヒューズ、配線接続、サブバッテリー連動、消費電力、電圧監視、電源スイッチ、リレー、トラブル診断、電源断線、バッテリー消費、動作チェック、電源保護、配線設計、接続方法、リセット方法、エラー表示、分電盤、修理方法 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【冷蔵庫用電装システム】関連事項：冷蔵庫、DC12V、AC100V、インバーター連動、消費電力、専用配線、リレー、温度センサー、冷却ファン、サーモスタット、バッテリー負荷、電圧変動、温度管理、動作チェック、トラブル事例、配線図、電源スイッチ、ヒューズ、設置方法、メンテナンス URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【電子レンジ使用の注意点】関連事項：電子レンジ、インバーター容量、起動電力、瞬間最大消費、配線負荷、ヒューズ、電源管理、サブバッテリー容量、DC-AC変換、冷却ファン、過電流防止、設置場所、耐熱処理、電源ON/OFF、誤作動対策、動作確認、エラー表示、故障診断、電源リレー、バッテリー保護 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【サブバッテリーの並列・直列接続】関連事項：サブバッテリー、並列接続、直列接続、接続方法、電圧調整、容量アップ、充電バランス、接続ケーブル、端子加工、ヒューズ、配線設計、逆流防止、電流計、残量計、トラブル事例、設置例、電圧監視、メンテナンス、増設方法、注意点 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【バッテリー残量管理術】関連事項：バッテリー残量計、電圧計、電流計、モニター設置、消費電力計算、充放電履歴、警告表示、残量警報、デジタルモニター、警報ブザー、リセット機能、バックライト、データ記録、スマホ連携、表示誤差、バッテリー管理、運用事例、設置方法、トラブル対応、計測誤差 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【発電機連動電装システム】関連事項：発電機、AC外部入力、切替スイッチ、分電盤、充電器、バッテリー補助、インバーター、連動リレー、起動順序、消費電力、トラブル対応、配線設計、音対策、ガソリン発電機、騒音対策、安全装置、動作テスト、運用事例、使用例、緊急対応 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【充電コントローラーの選び方】関連事項：充電コントローラー、MPPT、PWM、チャージコントローラー、最大電流、入力電圧、対応パネル、出力設定、バッテリー対応、自己診断、警報表示、保護回路、設置方法、メンテナンス、初期設定、トラブル事例、誤配線、メーカー比較、性能評価、コスパ URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【ヒューズ＆リレー基礎】関連事項：ヒューズ、リレー、過電流保護、定格電流、設置場所、交換方法、ヒューズボックス、リレー動作、ショート対策、配線設計、回路図、テスター、断線検知、消耗部品、ヒューズ種類、リレー種類、スペア保管、メンテナンス、故障診断、安全管理 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【分電盤の増設・修理】関連事項：分電盤、回路増設、ブレーカー、端子台、配線整理、回路図、配線タグ、ヒューズ増設、容量計算、ショート防止、電源スイッチ、増設工事、施工手順、配線固定、修理事例、誤配線対策、動作確認、トラブル診断、安全基準、メンテナンス URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【エアコン電源管理】関連事項：エアコン、消費電力、起動電流、専用回路、インバーター容量、サブバッテリー、外部電源、ヒューズ、リレー、配線設計、動作確認、電圧降下、エラー表示、ブレーカー、電源スイッチ、設置方法、電流測定、メンテナンス、トラブル事例、安全対策 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【USB＆シガーソケット増設】関連事項：USB電源、シガーソケット、増設方法、配線ルート、ヒューズ、取り付け場所、電圧管理、最大電流、電源ON/OFF、配線固定、端子加工、トラブル事例、使用例、スイッチ連動、DIY設置、電源保護、短絡防止、メンテナンス、交換方法、推奨商品 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【照明・家電の同時使用術】関連事項：LED照明、冷蔵庫、電子レンジ、エアコン、同時使用、消費電力計算、配線負荷、サブバッテリー容量、電圧監視、ヒューズ、電源リレー、トラブル対策、分電盤、制御盤、配線設計、運用事例、動作チェック、エラー表示、増設方法、注意事項 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+
+【電装系トラブル対策マニュアル】関連事項：電装トラブル、断線、ショート、配線抜け、ヒューズ切れ、リレー不良、電圧低下、過充電、逆流、端子腐食、バッテリー上がり、過電流、誤配線、分電盤異常、LED不点灯、センサー誤動作、故障診断、応急処置、修理例、再発防止 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/risk1/,https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/
+```
+
+---
+
+
