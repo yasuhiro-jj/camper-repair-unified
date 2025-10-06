@@ -1,0 +1,396 @@
+### ⚡ インバーター（DC‑AC 100 V 変換）トラブル知識ベース
+
+（IV‑1〜IV‑10｜各4〜5往復のテキスト会話）
+
+---
+
+## 【Case IV‑1】電源ONでも出力ゼロ
+
+**ユーザー**
+スイッチを入れても AC 出力がまったく出ません。リモコンも真っ暗です。
+
+**スタッフ**
+①本体ヒューズ切れ ②内部基板故障 ③12 V 電圧低下――の順で確認しましょう。バッテリー電圧はいくつありますか？
+
+**ユーザー**
+12.6 V あります。ヒューズは切れていません。
+
+**スタッフ**
+基板保護ヒューズが本体内部で切れている可能性があります。分解点検し、基板ごとの交換が必要か判断します。当センターなら 30 分で診断可能です。
+
+---
+
+## 【Case IV‑2】起動直後にピーピー警告音
+
+**ユーザー**
+ON するとすぐビープが鳴って停止します。エラーは “OVERLOAD”。
+
+**スタッフ**
+突入電流の大きい機器（電子レンジ・コンプレッサ冷蔵庫など）が同時に繋がっていませんか？
+
+**ユーザー**
+電子レンジが繋がってました。
+
+**スタッフ**
+起動時は 1200 W 以上のラッシュが発生します。まずレンジを外し、再度起動。それで正常ならスタートアップリレーやワットモニターで順次投入する方法が有効です。
+
+---
+
+## 【Case IV‑3】低電圧でシャットダウン
+
+**ユーザー**
+バッテリー残量 70％ のはずなのに “Low Bat” で止まります。
+
+**スタッフ**
+配線が細いと瞬間電圧降下が大きく出ます。インバーターまでのケーブル径と長さを教えていただけますか？
+
+**ユーザー**
+3 m で 8 sq ケーブルです。（1500 W 機）
+
+**スタッフ**
+1500 W なら 22 sq 相当が推奨です。太いケーブルに引き直すと低電圧停止は解消します。
+
+---
+
+## 【Case IV‑4】ファンがうるさい／止まらない
+
+**ユーザー**
+無負荷でもファンがフル回転で寝られません。
+
+**スタッフ**
+内部温度センサーが故障すると常時 HIGH で回ります。吸排気口のホコリ除去後も止まらない場合は温度センサー交換が必要です。
+
+**ユーザー**
+掃除しても変わりませんでした。
+
+**スタッフ**
+基板上のサーミスタ交換で改善します。当社で基板半田交換が可能です。
+
+---
+
+## 【Case IV‑5】家庭用 100 V 機器が動かない（モーター類）
+
+**ユーザー**
+ミキサーが回らず「ウーン」と唸りますが動きません。
+
+**スタッフ**
+疑似正弦波インバーターだとブラシレスモーターが起動しません。お使いのモデルは正弦波ですか？
+
+**ユーザー**
+安価な疑似正弦波タイプです。
+
+**スタッフ**
+正弦波インバーターに変更すれば正常動作します。1500 W 級正弦波モデル在庫ありますのでご検討ください。
+
+---
+
+## 【Case IV‑6】リモコンパネルが表示フリーズ
+
+**ユーザー**
+数字が 8888 のまま固まります。操作不能です。
+
+**スタッフ**
+フラットケーブル接触不良が多い症例です。一度コネクタを抜き差ししてみてください。
+
+**ユーザー**
+抜き差しで復旧しました！
+
+**スタッフ**
+再発する場合はケーブル交換かコネクタはんだ補強を行いましょう。
+
+---
+
+## 【Case IV‑7】走行充電と併用でハムノイズ
+
+**ユーザー**
+走行充電中にだけ AC 出力に「ブーン」と 50 Hz ノイズが乗ります。
+
+**スタッフ**
+DC‑DC 充電器のスイッチングノイズがインバーターに回り込んでいます。DC 入力側にフェライトコアと 1000 µF コンデンサを追加でノイズが軽減します。
+
+**ユーザー**
+パーツありますか？
+
+**スタッフ**
+ノイズフィルターキット 3,000 円で取付け 15 分です。ご予約ください。
+
+---
+
+## 【Case IV‑8】アイドリングでもバッテリーが急減
+
+**ユーザー**
+アイドリングで PC 充電だけなのにバッテリーが見る見る減ります。
+
+**スタッフ**
+インバーターの待機電流（アイドル電流）が高いモデルだと、無負荷でも 1〜2 A 流れます。仕様書で “No‑Load Draw” を確認できますか？
+
+**ユーザー**
+2.5 A と書いてます。
+
+**スタッフ**
+待機電流 0.5 A 以下の省電力モデルへ買い替えるとロスが大幅に減ります。
+
+---
+
+## 【Case IV‑9】GFCI（漏電遮断器）が即トリップ
+
+**ユーザー**
+外部電源サイトでつなぐと瞬時に GFCI が落ちます。
+
+**スタッフ**
+インバーターのライン中性対地接続が北米仕様の場合、日本の GFCI で漏電判定されます。内部ジャンパーを切替え 2 線式に変更する必要があります。
+
+**ユーザー**
+自分でできますか？
+
+**スタッフ**
+基板改造になるため、専門店で行うのが安全です。当センターで改造サービスを承ります。
+
+---
+
+## 【Case IV‑10】リモートスイッチで電源が入らない
+
+**ユーザー**
+本体ボタンなら入るのにリモートでは反応せず…。
+
+**スタッフ**
+リモートケーブルピン折れか RJ‑45 端子腐食が原因です。差し替え口を変えて確認してください。
+
+**ユーザー**
+端子が緑青で腐食してました。
+
+**スタッフ**
+接点復活剤で清掃し、改善しなければケーブル交換です。予備ケーブルありますので即日交換可能です。
+
+---
+承知しました！
+ご指定の **インバーター関連ブログ3つのURL** をすべてのテーマに追加した形にします。
+
+---
+
+```
+【インバーター完全ガイド】関連事項：インバーター、正弦波、矩形波、DC-AC変換、容量選定、出力波形、連続出力、最大出力、効率、消費電力、サブバッテリー、外部電源切替、配線方法、冷却ファン、誤動作対策、取り付け位置、車載対応、運転時注意、DIY設置、トラブル対策 URL：https://camper-repair.net/inverter-selection/
+
+【インバーターの仕組みと役割】関連事項：インバーター、変換回路、DC入力、AC出力、電圧変換、周波数変換、回路構成、出力安定、波形制御、保護回路、ノイズ対策、効率向上、設計思想、搭載目的、電源安定化、サブバッテリー連携、用途別設計、進化の歴史、最新技術、実用事例 URL：https://camper-repair.net/blog/inverter1/
+
+【インバーターの種類と特徴】関連事項：インバーター、正弦波インバーター、修正正弦波、矩形波、定格容量、連続出力、ピーク出力、効率、発熱、冷却方式、静音設計、用途別特徴、車載専用、家庭用兼用、重量、サイズ、電圧対応、入力端子、AC出力端子、価格帯 URL：https://camper-repair.net/inverter-selection/
+
+【インバーター容量の選び方】関連事項：インバーター、容量選定、必要容量計算、家電消費電力、ピーク電力、同時使用機器、連続出力、余裕率、バッテリー容量、出力安定性、推奨容量、冷蔵庫、電子レンジ、エアコン、IH調理器、パソコン、照明、TV、充電器、失敗例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターの配線・設置方法】関連事項：インバーター、配線手順、接続ケーブル、端子加工、アース線、ヒューズ設置、ブレーカー、配線長、電圧降下、固定方法、取り付け位置、放熱スペース、結束バンド、ケーブルガイド、DIY注意点、配線図、接触不良対策、誤接続防止、設置例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーター運用時の安全対策】関連事項：インバーター、安全基準、ヒューズ設置、ブレーカー、アース接続、ショート対策、絶縁処理、誤配線防止、電圧監視、温度監視、過電流保護、過熱保護、運転音管理、設置場所注意、通気確保、火災防止、メーカー規格遵守、定期点検、DIY運用、安全注意、緊急時対応 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターで使える家電リスト】関連事項：インバーター、家電使用可否、冷蔵庫、電子レンジ、IH調理器、エアコン、TV、パソコン、炊飯器、扇風機、照明、バッテリー充電器、ドライヤー、ポット、掃除機、コーヒーメーカー、調理家電、消費電力、起動電流、対応波形、推奨使用例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターとサブバッテリーの関係】関連事項：インバーター、サブバッテリー、直結接続、容量配分、バッテリー消耗、電圧降下、充電サイクル、バッテリー寿命、放電深度、並列接続、容量計算、バッテリー種類、残量管理、インジケーター、電圧警告、交換時期、運用事例、メンテナンス、組み合わせ例、故障例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーター切替運用のポイント】関連事項：インバーター、外部電源、切替スイッチ、サブバッテリー連動、優先給電、手動切替、自動切替、切替回路、接点リレー、配線設計、切替時注意、切替トラブル、AC入力、出力安定、DIY設置、切替動作試験、運用注意、設計例、実践事例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバータートラブル事例と対策】関連事項：インバーター、電源入らない、出力ゼロ、波形異常、ヒューズ切れ、過熱停止、ノイズ発生、誤作動、ブザー鳴動、端子焼損、異音、配線ミス、容量不足、負荷オーバー、冷却ファン故障、内部基板故障、DIY修理、メーカー保証、復旧方法、応急対応 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターの定期メンテナンス】関連事項：インバーター、メンテナンス、定期点検、端子清掃、配線緩み、ヒューズ確認、冷却ファン掃除、内部清掃、異音チェック、出力測定、動作確認、経年劣化、交換目安、トラブル予防、DIYメンテ、メーカー点検、点検周期、保守記録、交換部品、メンテ道具 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーター選びの失敗例と注意点】関連事項：インバーター、容量不足、波形選定ミス、安価モデル、発熱問題、ノイズ問題、家電非対応、サイズ誤選択、設置スペース不足、保証なし、DIY設置失敗、過負荷運用、初期不良、故障頻発、冷却不良、寿命短縮、交換費用、誤配線、説明書未読、失敗事例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターと冷蔵庫の相性】関連事項：インバーター、冷蔵庫、起動電流、定格消費電力、コンプレッサー方式、正弦波必須、容量選定、出力安定、連続運転、冷却性能、電圧安定化、消費電力低減、バッテリー持ち、長時間運用、トラブル例、動作不良、設置例、メーカー推奨、口コミ評価、実体験 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターのノイズ・電波障害対策】関連事項：インバーター、ノイズ対策、電波障害、出力波形、アース強化、配線分離、シールドケーブル、フィルター回路、ノイズフィルター、対策部品、TV映像乱れ、ラジオ雑音、パソコン障害、電子機器影響、DIY施工、専門業者、体感事例、原因調査、口コミ、事例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターの消費電力と省エネ運用】関連事項：インバーター、消費電力、待機電力、負荷効率、省エネ家電、エコ運転、ON/OFF管理、ピークカット、タイマー利用、バッテリー節約、LED活用、短時間運転、使用優先度、サブバッテリー連動、消費電力計測、運用ノウハウ、節電グッズ、節電設定、省エネ機能、トラブル例 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターのDIY設置手順】関連事項：インバーター、DIY設置、作業手順、配線設計、部品選定、固定方法、ヒューズ設置、アース接続、冷却スペース、工具準備、説明書確認、結線ミス防止、通電テスト、設置チェック、設置例、設置コスト、DIY事例、注意事項、トラブル対応、仕上がり評価 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターの人気モデル比較】関連事項：インバーター、人気モデル、メーカー比較、スペック比較、容量別、波形別、口コミ評価、価格帯、サイズ、重さ、入力端子、出力端子、冷却方式、保証内容、耐久性、アクセサリー有無、設置性、家電対応性、選び方、実際の評価 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターと発電機の連携運用】関連事項：インバーター、発電機、連動運転、入力切替、出力安定、発電量制御、ノイズ対策、接続方法、ヒューズ設置、並列運転、充電制御、燃料管理、運転音、冷却対応、設置例、DIY施工、発電機収納、プロ設置、トラブル例、メリット URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターとソーラー発電の組み合わせ】関連事項：インバーター、ソーラーパネル、チャージコントローラー、バッテリー充電、連携運用、出力安定化、MPPT制御、PWM制御、発電効率、日照調整、配線方法、電圧監視、発電量計測、切替回路、設置事例、トラブル例、DIY対応、メーカー推奨、使用例、省エネ URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+
+【インバーターの保証・サポート活用法】関連事項：インバーター、メーカー保証、保証期間、保証内容、初期不良対応、修理サポート、問い合わせ窓口、延長保証、購入証明、サポート体制、部品供給、交換対応、プロ点検、FAQ、取扱説明書、アップグレード対応、アフターサービス、口コミ情報、修理事例、保証活用 URL：https://camper-repair.net/blog/inverter1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/repair1/
+```
+
+---
+インバーター修理アドバイス
+
+**検索キーワード:** {query}
+
+キャンピングカーのインバーターは、サブバッテリーの直流（DC12V/24V）を家庭用交流電源（AC100V）に変換する重要機器です。不具合が起きると電子レンジや冷蔵庫、コンセント機器が使えなくなり、快適性が大きく損なわれます。
+
+---
+
+## よくある症状
+
+- インバーターの電源が入らない
+    
+- AC100V機器が動作しない
+    
+- 異常な発熱や異音がある
+    
+- 電圧が安定せず機器が誤作動する
+    
+- 過負荷やエラー表示が頻発する
+    
+
+---
+
+## 修理費用目安
+
+- 診断料：3,000〜5,000円
+    
+- ヒューズ・配線修理：5,000〜10,000円
+    
+- 基板修理：15,000〜30,000円
+    
+- インバーター本体交換：30,000〜80,000円
+    
+
+---
+
+## 対応製品例
+
+## COTEK（コーテック）正弦波インバーター
+
+- 商品名：「COTEK 正弦波DC-ACインバーター SPシリーズ、SEシリーズ」
+    
+- 商品ページ（日本国内代理店・専門店）：[https://shop.onegain.co.jp/shopbrand/002/X/](https://shop.onegain.co.jp/shopbrand/002/X/)[](https://shop.onegain.co.jp/shopbrand/002/X/)
+    
+- 他にも実店舗・通販多数（楽天: [https://item.rakuten.co.jp/onegain/c/0000000300/）](https://item.rakuten.co.jp/onegain/c/0000000300/%EF%BC%89)[](https://item.rakuten.co.jp/onegain/c/0000000300/)
+    
+
+## SAMLEX（サムレックス）パワーインバーター
+
+- 商品名：「Samlex DC-AC Power Inverter SWIシリーズ、SAMシリーズ」
+    
+- 公式製品一覧: [https://samlex.com/dc-ac-power-inverters/](https://samlex.com/dc-ac-power-inverters/)[](https://samlex.com/dc-ac-power-inverters/)
+    
+- 日本での並行輸入例: [https://store.shopping.yahoo.co.jp/trade-journey/b004rcwxwk.html](https://store.shopping.yahoo.co.jp/trade-journey/b004rcwxwk.html)[](https://store.shopping.yahoo.co.jp/trade-journey/b004rcwxwk.html)
+    
+- 大型モデル例: [https://waba.chandnisoft.com/itemdetail/255007219](https://waba.chandnisoft.com/itemdetail/255007219)[](https://waba.chandnisoft.com/itemdetail/255007219)
+    
+
+## トリップライト（Tripp Lite Inverter）
+
+- 商品名：「Tripp Lite PowerVerter RV / コンパクトインバーター」
+    
+- 代表商品ページ: [https://tripplite.eaton.com/750w-powerverter-rv-inverter-charger-hardwire-input-output~RV750ULHW](https://tripplite.eaton.com/750w-powerverter-rv-inverter-charger-hardwire-input-output~RV750ULHW)[](https://tripplite.eaton.com/750w-powerverter-rv-inverter-charger-hardwire-input-output~RV750ULHW)
+    
+- 大型モデル（3000W）: [https://www.marutsu.co.jp/pc/i/13731391/](https://www.marutsu.co.jp/pc/i/13731391/)[](https://www.marutsu.co.jp/pc/i/13731391/)
+    
+- コンパクトモデル（1000W）: [https://tripplite.eaton.com/1000w-powerverter-compact-inverter-trucks-4-outlets~PV1000HF](https://tripplite.eaton.com/1000w-powerverter-compact-inverter-trucks-4-outlets~PV1000HF)[](https://tripplite.eaton.com/1000w-powerverter-compact-inverter-trucks-4-outlets~PV1000HF)
+    
+- 正弦波モデル例: [https://www.networkhardwares.com/ja-jp/products/tripp-%E8%BB%BD%E3%81%84-pinv1000sw-120-tripp-%E8%BB%BD%E3%81%84-pinv1000sw-120-1000w-%E8%BB%BD%E4%BD%9C%E6%A5%AD-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88-%E9%9B%BB%E5%8A%9B-%E3%82%A4%E3%83%B3%E3%83%90%E3%83%BC%E3%82%BF](https://www.networkhardwares.com/ja-jp/products/tripp-%E8%BB%BD%E3%81%84-pinv1000sw-120-tripp-%E8%BB%BD%E3%81%84-pinv1000sw-120-1000w-%E8%BB%BD%E4%BD%9C%E6%A5%AD-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88-%E9%9B%BB%E5%8A%9B-%E3%82%A4%E3%83%B3%E3%83%90%E3%83%BC%E3%82%BF)[](https://www.networkhardwares.com/ja-jp/products/tripp-%E8%BB%BD%E3%81%84-pinv1000sw-120-tripp-%E8%BB%BD%E3%81%84-pinv1000sw-120-1000w-%E8%BB%BD%E4%BD%9C%E6%A5%AD-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88-%E9%9B%BB%E5%8A%9B-%E3%82%A4%E3%83%B3%E3%83%90%E3%83%BC%E3%82%BF)
+    
+
+---
+
+## 🔧 詳細修理手順
+
+1. **点検作業**
+    
+    - 電源スイッチ、ヒューズ、配線の導通を確認
+        
+    - エラーメッセージやランプ表示を確認
+        
+2. **原因特定**
+    
+    - 過負荷・過熱 → 使用機器の消費電力を確認
+        
+    - バッテリー電圧不足 → 電圧測定
+        
+    - 基板故障 → 専門業者に依頼
+        
+3. **修理・交換**
+    
+    - ヒューズ・配線の交換
+        
+    - 必要に応じてインバーター本体を交換
+        
+    - 動作確認と負荷テストを実施
+        
+
+---
+
+## 修理ケース例
+
+### ケース1: 電源が入らない
+
+- **原因**：内部ヒューズ切れ、バッテリー電圧不足
+    
+- **対処法**：ヒューズ交換、バッテリー充電
+    
+- **費用**：5,000〜12,000円
+    
+
+---
+
+### ケース2: AC100V機器が動作しない
+
+- **原因**：インバーター出力不良、基板故障
+    
+- **対処法**：基板修理または本体交換
+    
+- **費用**：20,000〜60,000円
+    
+
+---
+
+### ケース3: エラー表示が頻発
+
+- **原因**：過負荷・冷却ファン故障・内部発熱
+    
+- **対処法**：接続機器の消費電力を調整、ファン交換、本体点検
+    
+- **費用**：10,000〜30,000円
+    
+
+---
+
+## 修理手順
+
+1. **問題箇所の特定**
+   - AC出力の有無を確認（100Vが出力されているか）
+   - 入力電圧（バッテリー電圧）の測定
+   - 過負荷ランプ・エラーランプ点灯の有無確認
+   - 冷却ファンの動作有無
+   - 本体からの異音・異臭の確認
+
+2. **安全確認と準備**
+   - 作業前に必ず電源を切り、バッテリーを外す
+   - 感電防止のため絶縁手袋を着用
+   - 放熱フィンや内部コンデンサに触れないよう注意
+   - 必要な工具（テスター、絶縁ドライバーなど）を準備
+
+3. **部品の交換・修理**
+   - ヒューズ・リレーの交換
+   - 冷却ファンの清掃・交換
+   - コンデンサ・トランジスタ・IC基板の交換
+   - 配線の断線・接触不良の修復
+   - 内部のホコリ除去・端子の締め直し
+
+4. **動作確認**
+   - 入力側に適正電圧を与え、出力電圧を測定
+   - 負荷（家電など）を接続して正常に動作するか確認
+   - 冷却ファンの回転と発熱状況をチェック
+   - 動作中にノイズ・異音がないか確認
+
+5. **最終チェック**
+   - 過負荷保護・温度保護機能が正常に動作するかテスト
+   - 出力波形（正弦波/疑似波）の安定性を確認
+   - 配線の緩み・端子部の発熱を確認
+   - 本体固定状態・設置位置の再確認
+
+## 注意事項
+
+⚠️ **安全第一で作業を行ってください**
+- 作業前に必ず電源・バッテリーを切断する
+- 感電防止のため絶縁工具を使用する
+- 内部基板・コンデンサは高電圧を保持するため素人作業禁止
+- 過負荷・定格オーバーでの使用は厳禁
+- 高温部（ヒートシンク・トランジスタ）に触れない
+- 分解・改造は専門業者以外禁止
+- 必要に応じてメーカーまたは専門店に相談
+
+
+
+
