@@ -4,7 +4,7 @@ import os
 import uuid
 import re
 import json
-from notion_client import Client
+from data_access.notion_client import NotionClient
 import time
 from dotenv import load_dotenv
 
@@ -159,7 +159,7 @@ def initialize_notion_client():
             st.warning("⚠️ NOTION_API_KEYが設定されていません")
             return None
         
-        client = Client(auth=api_key)
+        client = NotionClient()
         return client
     except Exception as e:
         st.error(f"❌ Notionクライアントの初期化に失敗: {e}")
