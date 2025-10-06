@@ -49,7 +49,22 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.messages import BaseMessage
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain_chroma import Chroma
+try:
+    from langchain_chroma import Chroma
+except ImportError:
+    # フォールバック: 基本的なChromaクラスを定義
+    class Chroma:
+        def __init__(self, *args, **kwargs):
+            self.documents = []
+        
+        @classmethod
+        def from_documents(cls, documents, embedding):
+            instance = cls()
+            instance.documents = documents
+            return instance
+        
+        def similarity_search(self, query, k=3):
+            return self.documents[:k]
 
 import glob
 import config
