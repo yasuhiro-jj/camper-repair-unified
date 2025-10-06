@@ -1,0 +1,195 @@
+### 🔌 外部電源（ショアパワー）トラブル知識ベース
+
+（EP‑1〜EP‑10｜各4〜5往復のテキスト会話）
+
+---
+
+## 【Case EP‑1】外部電源に繋いでも通電しない
+
+**ユーザー**
+キャンプ場のポールに繋いでも車内のACが来ません。
+
+**スタッフ**
+①ポール側ブレーカー ②インレットヒューズ ③車内ブレーカー――の順で確認しましょう。ポールはONになっていますか？
+
+**ユーザー**
+ONですが車内ブレーカーは落ちてました。
+
+**スタッフ**
+ブレーカーを上げても落ちるようならインバーター/充電器にショートの可能性ありです。異常が続く場合は点検をおすすめします。
+
+---
+
+## 【Case EP‑2】接続するとすぐブレーカーが落ちる
+
+**ユーザー**
+差した瞬間にポール側ブレーカーがバチッと落ちます。
+
+**スタッフ**
+大量突入電流を取る機器が一斉に起動しているか漏電の可能性です。車内の家電を全てOFFにし、徐々にONにする方法を試せますか？
+
+**ユーザー**
+電子レンジONで落ちました。
+
+**スタッフ**
+レンジ内部ショートの疑いがあります。別コンセントに挿しても同様ならレンジ交換です。
+
+---
+
+## 【Case EP‑3】GFCI（漏電遮断器）が頻繁に作動
+
+**ユーザー**
+キャンプ場でGFCIがすぐ切れます。
+
+**スタッフ**
+湿気による微漏電が多い原因です。延長コード接点やインレットの水滴を確認・乾燥させてください。ゴムパッキンの劣化も要点検です。
+
+**ユーザー**
+コード先端が濡れてました。拭いたら大丈夫でした！
+
+---
+
+## 【Case EP‑4】外部電源ケーブルが熱い
+
+**ユーザー**
+30Aケーブルが触れないほど熱いのですが…。
+
+**スタッフ**
+接続ピンの接触抵抗増加が原因で、焼損前兆です。プラグ刃に焼け跡がないか確認してください。
+
+**ユーザー**
+焦げて黒いです。
+
+**スタッフ**
+プラグ交換を推奨します。焼損が進むと火災の危険が高まりますので早急にご来店ください。
+
+---
+
+## 【Case EP‑5】供給電圧が低い（90V台）
+
+**ユーザー**
+発電機併設サイトで電圧が95Vしかありません。
+
+**スタッフ**
+低電圧は機器故障の原因になります。昇圧トランスか発電機側の調整が必要です。昇圧トランスはお持ちですか？
+
+**ユーザー**
+ありません。
+
+**スタッフ**
+当社ではポータブル昇圧トランスをレンタル可能です。ご検討ください。
+
+---
+
+## 【Case EP‑6】極性反転アラームが鳴る
+
+**ユーザー**
+接続したらポータブルサージガードが“Reverse Polarity”で警告します。
+
+**スタッフ**
+ポール側の配線ミスです。管理者に連絡し修正してもらうまで使用を避けてください。当社サージガードは車両を守るので外さないようにお願いします。
+
+---
+
+## 【Case EP‑7】充電器からブーンという異音
+
+**ユーザー**
+外部電源時だけ充電器が唸ります。
+
+**スタッフ**
+AC入力波形が歪むとコイルが共振します。発電機電源や安価インバーター系統ですか？
+
+**ユーザー**
+キャンプ場のインバーター発電機です。
+
+**スタッフ**
+正弦波発電機かラインインタラクティブUPSを挟むと静かになります。レンタルも可能です。
+
+---
+
+## 【Case EP‑8】プラグのピンが溶けて差さらない
+
+**ユーザー**
+プラグ先端が変形しポールに入らなくなりました。
+
+**スタッフ**
+高負荷で過熱し樹脂が溶けています。プラグとソケット両方交換しないと再発します。部品在庫ございますので即日作業可能です。
+
+---
+
+## 【Case EP‑9】15A→30A変換アダプターで充電が遅い
+
+**ユーザー**
+家庭用15Aコンセントからだとサブバッテリーの充電が遅いです。
+
+**スタッフ**
+充電器は30A入力前提のため電流が制限されています。15A回路では約半分の速度になります。夜間充電なら問題ありませんが短時間なら発電機か30A回路を利用してください。
+
+---
+
+## 【Case EP‑10】サージプロテクター導入を検討
+
+**ユーザー**
+落雷対策にサージガードを付けたいです。種類は？
+
+**スタッフ**
+①ポータブル型 ②ハードワイヤ型 があり、50,000A耐量品が推奨です。LED状態で極性・接地・電圧も確認できます。
+
+**ユーザー**
+DIYで取り付けられますか？
+
+**スタッフ**
+ポータブル型は挿すだけ、ハードワイヤ型はAC分電盤前で結線が必要です。自信がなければ当センターで1時間ほどで取付けいたします。
+
+---
+承知しました！
+**ご指定の外部電源関連ブログ5つのURL**を、各テーマの末尾に「URL：」でカンマ区切りで追加し、タイトル＋関連事項20個×20テーマの形でまとめます。
+
+---
+
+```
+【外部電源システムの基本】関連事項：外部電源、AC100V、電源ケーブル、入力端子、分電盤、ヒューズ、アース、切替スイッチ、ブレーカー、電源リレー、充電器連動、発電機対応、電源安定化、漏電防止、耐水プラグ、配線方法、安全基準、外部入力規格、施工事例、運用例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源の種類と選び方】関連事項：外部電源、商用電源、発電機、ソーラーパネル、インバーター、家庭用AC、直流電源、コンセント接続、携帯型電源、車両入力端子、変圧器、コネクタ種類、消費電力、定格容量、対応規格、取付位置、使い方、メリット、デメリット、メーカー比較 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源接続の安全対策】関連事項：外部電源、配線設計、絶縁処理、アース工事、ヒューズ設置、耐熱ケーブル、ショート対策、漏電対策、誤接続防止、配線固定、端子清掃、防水対策、ブレーカー、定期点検、配線経路、通電確認、DIY注意点、法令遵守、安全基準、施工例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源のトラブル事例と対策】関連事項：電源不良、通電しない、ショート、ヒューズ切れ、接触不良、漏電、断線、ブレーカー落ち、電圧低下、過電流、端子焼損、配線断裂、切替スイッチ故障、入力端子破損、応急修理、トラブル事例、復旧方法、定期点検、プロ依頼、自己修理 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源の切替運用と工夫】関連事項：外部電源、切替スイッチ、サブバッテリー、インバーター、充電器、AC/DC切替、優先給電、動作順序、切替方法、自動切替、手動切替、運用事例、誤動作防止、表示パネル、回路設計、DIY設置、電源管理、ブレーカー設定、消費電力管理、安全運用 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源とサブバッテリー充電】関連事項：外部電源、サブバッテリー、充電回路、充電制御、充電器選定、電圧監視、充電ケーブル、電流調整、過充電防止、充電効率、残量表示、急速充電、切替制御、充電履歴、寿命延長、充電安全、DIY設置、トラブル対策、保守点検、運用例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【インバーター連携で電源確保】関連事項：インバーター、外部電源、正弦波、矩形波、AC/DC変換、出力容量、入力切替、配線接続、ON/OFF操作、出力安定、消費電力、冷却ファン、誤作動対策、電源切替、並列運転、設置場所、推奨モデル、トラブル事例、運用事例、プロ施工 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【発電機と外部電源の併用術】関連事項：発電機、外部電源、連動運転、入力切替、発電量制御、燃料管理、騒音対策、耐震設置、メンテナンス、バッテリー補助、出力安定、過負荷保護、発電機収納、起動順序、発電量表示、発電機ON/OFF、連携運用、プロ施工、DIY設置、注意点 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源の配線ルートと整理】関連事項：配線ルート、壁面配線、床下配線、配線固定、配線カバー、分電盤配置、回路設計、ケーブル太さ、端子加工、分岐配線、DIY設計、増設対応、将来拡張、整理整頓、配線図作成、配線距離、配線見直し、保守点検、固定部品、プロ設計 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源コンセント・端子の選定】関連事項：外部コンセント、入力端子、コネクタ形状、耐水仕様、耐熱仕様、容量選定、設置位置、配線対応、カバー付き端子、純正部品、互換部品、交換方法、固定方法、ケーブル長、誤挿入防止、部品調達、DIY交換、メンテナンス、メーカー比較、端子清掃 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源対応家電の使い方】関連事項：外部電源、家電使用、冷蔵庫、電子レンジ、エアコン、IH調理器、消費電力計算、同時使用制限、ブレーカー容量、インバーター選定、待機電力、ON/OFF管理、家電配線、延長コード、消費電流、節電術、発電機併用、トラブル防止、家電故障、使い方事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源のメンテナンスと点検】関連事項：外部電源、定期点検、端子清掃、配線点検、ヒューズ交換、ブレーカー確認、接地確認、配線緩み、経年劣化、絶縁抵抗、腐食防止、耐水処理、劣化部品、点検周期、メンテナンス記録、漏電チェック、テスター使用、メンテ道具、清掃手順、点検事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源の安全基準と法令】関連事項：外部電源、安全基準、配線規格、施工基準、アース義務、漏電対策、火災予防、ヒューズ設置、耐熱材料、絶縁テープ、ショート防止、電気工事士、表示ラベル、定格容量、点検義務、事故防止、法令遵守、プロ施工推奨、安全教育、事故事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源DIY設置時の注意点】関連事項：DIY設置、外部電源、工具選び、配線知識、取付手順、誤配線対策、アース接続、ヒューズ設置、ブレーカー追加、端子加工、絶縁処理、耐水処理、施工例、失敗事例、事故防止、設置コスト、部品選定、作業時間、DIYトラブル、プロ相談 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源ヒューズ＆ブレーカー管理】関連事項：ヒューズ、ブレーカー、定格容量、交換方法、設置位置、予備ヒューズ、ヒューズボックス、テスター活用、断線検知、ショート対策、ブレーカー落ち、回路分岐、リセット方法、ヒューズ容量選定、部品購入、定期点検、部品収納、DIY交換、応急対応、トラブル事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源とソーラー連携運用】関連事項：外部電源、ソーラーパネル、チャージコントローラー、バッテリー充電、発電優先切替、パラレル運用、電圧監視、発電量計測、配線連結、MPPT制御、PWM制御、充電制御、ソーラー出力、外部給電、天候対応、発電履歴、設置方法、メンテナンス、トラブル対策、実運用 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源の拡張・増設計画】関連事項：外部電源、システム拡張、インバーター増設、発電機追加、配線増設、ブレーカー追加、家電増設、充電器アップグレード、最新家電対応、拡張パーツ、増設費用、拡張方法、配線整理、将来設計、施工事例、プロ相談、拡張リスク、運用注意、部品選定、増設トラブル URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源と天候リスク対策】関連事項：外部電源、天候リスク、雨対策、防水プラグ、嵐対応、雷対策、耐風設計、結露防止、断線リスク、台風時対応、応急修理、湿度管理、耐久性、外部収納、配線補強、トラブル防止、定期点検、災害時運用、停電時対応、リスク分散 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源の配線整理・ラベル管理】関連事項：配線整理、ラベル管理、配線タグ、色分け、配線図作成、ケーブル管理、誤配線防止、配線カバー、配線バンド、結束バンド、DIY整理術、分岐配線、ラベルプリンタ、メンテナンス性向上、配線ルート最適化、スペース節約、作業効率、プロ施工例、整理用具、保守管理 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+
+【外部電源システムのアップグレード】関連事項：外部電源、アップグレード、最新家電対応、システム拡張、インバーター交換、発電機高性能化、配線見直し、充電器強化、出力安定化、最新パーツ導入、費用比較、設置方法、運用改善、実例集、拡張リスク、プロ相談、パーツ選定、耐久性向上、トラブル対策、アップグレード事例 URL：https://camper-repair.net/blog/repair1/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/electrical-solar-panel/,https://camper-repair.net/blog/inverter-selection/,https://camper-repair.net/blog/inverter1/
+```
+
+---
+
+
+
