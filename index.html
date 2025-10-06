@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャンピングカー修理相談AI</title>
+    <style>
+      body {
+        font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', 'メイリオ', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      }
+
+      .header p {
+        font-size: 1.2em;
+        margin: 10px 0;
+        opacity: 0.9;
+      }
+
+      .chat-container {
+        background: rgba(255,255,255,0.95);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin-bottom: 20px;
+      }
+
+      .chat-messages {
+        height: 500px;
+        overflow-y: auto;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: #fafafa;
+      }
+
+      .message {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 15px;
+        max-width: 80%;
+        word-wrap: break-word;
+        line-height: 1.6;
+      }
+
+      .user-message {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        margin-left: auto;
+        text-align: right;
+      }
+
+      .ai-message {
+        background: white;
+        border: 2px solid #e0e0e0;
+        margin-right: auto;
+      }
+
+      .chat-input {
+        display: flex;
+        gap: 10px;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+
+      .chat-input input:focus {
+        border-color: #667eea;
+      }
+
+      .chat-input button {
+        padding: 15px 30px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .chat-input button:hover {
+        transform: translateY(-2px);
+      }
+
+      .chat-input button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 20px;
+        color: #666;
+      }
+
+      .loading.show {
+        display: block;
+      }
+
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 10px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .support-center-info {
+        background: rgba(255,255,255,0.95);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 5px solid #e74c3c;
+      }
+
+      .support-center-info h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        text-align: center;
+      }
+
+      .support-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+      }
+
+      .info-item {
+        background: #f8f9fa;
+        padding: 12px 15px;
+        border-radius: 8px;
+        border-left: 3px solid #3498db;
+        font-size: 0.95em;
+      }
+
+      .info-item strong {
+        color: #2c3e50;
+        display: inline-block;
+        margin-right: 8px;
+      }
+
+      .contact-form-btn {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 8px 15px;
+        background: linear-gradient(45deg, #f39c12, #e67e22);
+        color: white;
+        border-radius: 8px;
+        display: inline-block;
+        margin-left: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(243, 156, 18, 0.3);
+      }
+
+      .contact-form-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(243, 156, 18, 0.4);
+        background: linear-gradient(45deg, #e67e22, #d35400);
+      }
+
+      /* 関連ブログセクションのスタイル */
+      .related-blogs {
+        display: none; /* AIの回答内に組み込まれているため非表示 */
+        background: rgba(255,255,255,0.95);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 5px solid #27ae60;
+      }
+
+      .related-blogs h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        text-align: center;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+      }
+
+      .blog-card {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-left: 4px solid #27ae60;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      }
+
+      .blog-title {
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+        line-height: 1.4;
+      }
+
+      .blog-excerpt {
+        color: #666;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+
+      .blog-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8em;
+        color: #888;
+      }
+
+      .blog-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .blog-tag {
+        background: #ecf0f1;
+        color: #2c3e50;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 0.75em;
+      }
+
+      .links-section {
+        background: rgba(255,255,255,0.95);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 5px solid #3498db;
+      }
+
+      .links-section h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        text-align: center;
+      }
+
+      .links-section a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        margin: 5px 10px;
+        padding: 5px 10px;
+        background: #ecf0f1;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .links-section a:hover {
+        text-decoration: underline;
+      }
+
+      /* サポートセンター情報のスタイル */
+      .support-center-info {
+        background: rgba(255,255,255,0.95);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 5px solid #e74c3c;
+      }
+
+      .support-center-info h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        text-align: center;
+      }
+
+      .support-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+      }
+
+      .info-item {
+        background: #f8f9fa;
+        padding: 12px 15px;
+        border-radius: 8px;
+        border-left: 3px solid #3498db;
+        font-size: 0.95em;
+      }
+
+      .info-item strong {
+        color: #2c3e50;
+        display: inline-block;
+        margin-right: 8px;
+      }
+
+      .contact-form-btn {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 8px 15px;
+        background: linear-gradient(45deg, #f39c12, #e67e22);
+        color: white;
+        border-radius: 8px;
+        display: inline-block;
+        margin-left: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(243, 156, 18, 0.3);
+      }
+
+      .contact-form-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(243, 156, 18, 0.4);
+        background: linear-gradient(45deg, #e67e22, #d35400);
+      }
+
+      /* レスポンシブデザイン */
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .header h1 {
+          font-size: 2em;
+        }
+
+        .chat-container {
+          padding: 20px;
+        }
+
+        .chat-messages {
+          height: 400px;
+        }
+
+        .message {
+          max-width: 90%;
+        }
+
+        .chat-input {
+          flex-direction: column;
+        }
+
+        .chat-input input {
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚐 キャンピングカー修理相談AI</h1>
+            <p>専門的な修理アドバイスとサポートを提供します</p>
+        </div>
+
+        <!-- サポートセンター情報 -->
+        <div class="support-center-info">
+            <h2>🏢 岡山キャンピングカー修理サポートセンター</h2>
+            <div class="support-details">
+                <div class="info-item">
+                    <strong>📞 電話:</strong> 086-XXX-XXXX
+                </div>
+                <div class="info-item">
+                    <strong>📧 メール:</strong> info@camper-repair.net
+                </div>
+                <div class="info-item">
+                    <strong>🕒 営業時間:</strong> 平日 9:00-18:00
+                </div>
+                <div class="info-item">
+                    <strong>📍 所在地:</strong> 岡山県岡山市
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://camper-repair.net/contact/" class="contact-form-btn" target="_blank">
+                    お問い合わせフォーム
+                </a>
+            </div>
+        </div>
+
+        <!-- チャットコンテナ -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- メッセージがここに追加されます -->
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>AIが回答を生成中です...</p>
+            </div>
+            
+            <form class="chat-input" id="questionForm">
+                <input type="text" id="question" placeholder="キャンピングカーの問題についてお聞かせください..." required>
+                <button type="submit" id="submitBtn">送信</button>
+            </form>
+        </div>
+
+        <!-- 関連ブログセクション -->
+        <div class="related-blogs" id="relatedBlogs">
+            <h3>📝 関連ブログ記事</h3>
+            <div class="blog-grid" id="blogGrid">
+                <!-- 関連ブログがここに追加されます -->
+            </div>
+        </div>
+
+        <!-- 関連リンクセクション -->
+        <div class="links-section">
+            <h3>🔗 関連リンク</h3>
+            <a href="https://camper-repair.net/blog/" target="_blank">修理サポートブログ</a>
+            <a href="https://camper-repair.net/contact/" target="_blank">お問い合わせ</a>
+            <a href="https://camper-repair.net/" target="_blank">ホームページ</a>
+        </div>
+    </div>
+
+    <script>
+      let conversationId = null;
+
+      // 新しい会話を開始する関数
+      async function startNewConversation() {
+        try {
+          const response = await fetch('/api/start_conversation', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            conversationId = data.conversation_id;
+            console.log('新しい会話を開始:', conversationId);
+          } else {
+            console.error('会話開始に失敗:', response.status);
+          }
+        } catch (error) {
+          console.error('会話開始エラー:', error);
+        }
+      }
+
+      // メッセージを追加する関数
+      function addMessage(content, isUser = true) {
+        const chatMessages = document.getElementById('chatMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+        
+        // 改行を<br>タグに変換
+        const formattedContent = content.replace(/\n/g, '<br>');
+        messageDiv.innerHTML = formattedContent;
+        
+        chatMessages.appendChild(messageDiv);
+        
+        // スクロールを最下部に
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+       // 関連ブログを表示する関数
+       function showRelatedBlogs(blogs) {
+         const blogSection = document.getElementById('relatedBlogs');
+         const blogGrid = document.getElementById('blogGrid');
+         
+         if (!blogs || blogs.length === 0) {
+           blogSection.style.display = 'none';
+           return;
+         }
+         
+                 blogGrid.innerHTML = '';
+        
+        // 最大3件まで表示
+        const displayBlogs = blogs.slice(0, 3);
+        
+        displayBlogs.forEach(blog => {
+           const blogCard = document.createElement('div');
+           blogCard.className = 'blog-card';
+           blogCard.onclick = () => window.open(blog.url, '_blank');
+           
+           blogCard.innerHTML = `
+             <div class="blog-title">${blog.title}</div>
+             <div class="blog-excerpt">${blog.excerpt}</div>
+             <div class="blog-meta">
+               <div class="blog-tags">
+                 ${blog.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+               </div>
+               <div>${blog.date}</div>
+             </div>
+           `;
+           
+           blogGrid.appendChild(blogCard);
+         });
+         
+                 blogSection.style.display = 'block';
+        console.log('関連ブログを表示:', displayBlogs.length, '件');
+      }
+
+      // ブログリンクを表示する関数（サーバーから取得）
+      function showBlogLinks(blogLinks) {
+        const blogSection = document.getElementById('relatedBlogs');
+        const blogGrid = document.getElementById('blogGrid');
+        
+        if (!blogLinks || blogLinks.length === 0) {
+          blogSection.style.display = 'none';
+          return;
+        }
+        
+        blogGrid.innerHTML = '';
+        
+        // 最大3件まで表示
+        const displayBlogs = blogLinks.slice(0, 3);
+        
+        displayBlogs.forEach(blog => {
+          const blogCard = document.createElement('div');
+          blogCard.className = 'blog-card';
+          blogCard.onclick = () => window.open(blog.url, '_blank');
+          
+          blogCard.innerHTML = `
+            <div class="blog-title">${blog.title}</div>
+            <div class="blog-excerpt">${blog.excerpt}</div>
+            <div class="blog-meta">
+              <div class="blog-tags">
+                ${blog.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+              </div>
+              <div>${blog.date}</div>
+            </div>
+          `;
+          
+          blogGrid.appendChild(blogCard);
+        });
+        
+        blogSection.style.display = 'block';
+        
+        // デバッグ用ログ
+        console.log('サーバーからブログリンクを表示:', blogLinks.length, '件');
+      }
+
+               // ブログ検索機能
+        function searchRelatedBlogs(query) {
+          // 実在するブログ記事のみ
+          const realBlogs = [
+            {
+              title: 'キャンピングカーのタイヤ選びと空気圧管理で知るべきポイントとは？',
+              excerpt: 'キャンピングカーのタイヤ選びと空気圧管理について詳しく解説します。',
+              tags: ['タイヤ', '空気圧', '管理'],
+              date: '2025-08-10',
+              url: 'https://camper-repair.net/blog/'
+            },
+            {
+              title: 'キャンピングカーに最適なエアコンとは？家庭用・12V・ポータブルの違いを解説',
+              excerpt: 'キャンピングカーに最適なエアコンの種類と選び方について詳しく解説します。',
+              tags: ['エアコン', '12V', 'ポータブル'],
+              date: '2025-05-22',
+              url: 'https://camper-repair.net/blog/'
+            },
+            {
+              title: 'キャンピングカーのエアコン後付け費用や機種の選び方ガイド',
+              excerpt: 'キャンピングカーのエアコン後付けに関する費用や機種の選び方について説明します。',
+              tags: ['エアコン', '後付け', '費用'],
+              date: '2025-05-08',
+              url: 'https://camper-repair.net/blog/'
+            },
+            {
+              title: 'キャンピングカーの保険完全ガイド｜安心して旅を楽しむために知っておくべきこと',
+              excerpt: 'キャンピングカー保険について詳しく解説します。',
+              tags: ['保険', 'ガイド', '安心'],
+              date: '2025-08-26',
+              url: 'https://camper-repair.net/blog/'
+            },
+            {
+              title: 'キャンピングカー保険はチューリッヒとは オーナーが知るべき3つの理由',
+              excerpt: 'チューリッヒのキャンピングカー保険について説明します。',
+              tags: ['保険', 'チューリッヒ', '理由'],
+              date: '2025-09-26',
+              url: 'https://camper-repair.net/blog/'
+            },
+            {
+              title: '東京海上日動のキャンピングカー保険で安心の旅を！補償内容から選び方まで',
+              excerpt: '東京海上日動のキャンピングカー保険について詳しく解説します。',
+              tags: ['保険', '東京海上日動', '補償'],
+              date: '2025-09-22',
+              url: 'https://camper-repair.net/blog/'
+            }
+          ];
+         
+                 // クエリに基づいて関連ブログをフィルタリング
+        const relatedBlogs = realBlogs.filter(blog => {
+          const searchTerms = query.toLowerCase().split(' ');
+          const blogText = (blog.title + ' ' + blog.excerpt + ' ' + blog.tags.join(' ')).toLowerCase();
+          
+          // より柔軟なマッチング（部分一致も含む）
+          return searchTerms.some(term => {
+            if (term.length < 2) return false; // 1文字の単語は除外
+            return blogText.includes(term);
+          });
+        });
+        
+        // 関連ブログを表示
+        showRelatedBlogs(relatedBlogs);
+      }
+
+      // オフライン回答を取得する関数
+      function getOfflineAnswer(question) {
+        const lowerQuestion = question.toLowerCase();
+        
+        if (lowerQuestion.includes('バッテリー') || lowerQuestion.includes('充電')) {
+          return `バッテリー関連の問題ですね。一般的な原因として以下が考えられます：
+
+**主な原因：**
+1. アイソレーターの故障
+2. バッテリーの劣化
+3. 配線の断線
+4. 充電器の故障
+
+**確認方法：**
+- エンジン始動時の充電電圧を測定（13.8V以上が正常）
+- バッテリー端子の清掃
+- 配線の接続確認
+
+詳細な診断には専門業者への相談をお勧めします。`;
+        }
+        
+        if (lowerQuestion.includes('エアコン') || lowerQuestion.includes('冷房')) {
+          return `エアコン関連の問題ですね。キャンピングカーのエアコンでよくある問題は：
+
+**主な原因：**
+1. フィルターの汚れ
+2. 冷媒ガス漏れ
+3. 室外機の汚れ
+4. 電源供給の問題
+
+**対処法：**
+- フィルターの清掃・交換
+- 室外機の清掃
+- 電源電圧の確認
+
+エアコンの種類（家庭用・12V・ポータブル）によって対処法が異なります。`;
+        }
+        
+        return `申し訳ございませんが、現在サーバーに接続できません。
+
+一般的なキャンピングカーの修理について、以下の点をご確認ください：
+
+**基本チェック項目：**
+- ヒューズの確認
+- 配線の接続状態
+- バッテリーの電圧
+- 各機器の電源供給
+
+詳細な診断には、専門業者へのご相談をお勧めします。`;
+      }
+
+      // フォーム送信処理
+      document.getElementById('questionForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const question = document.getElementById('question').value.trim();
+        if (!question) return;
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+        
+        // UI更新
+        submitBtn.disabled = true;
+        loading.classList.add('show');
+        
+        // ユーザーメッセージを追加
+        addMessage(question, true);
+        
+        // 入力フィールドをクリア
+        document.getElementById('question').value = '';
+        
+        try {
+          // サーバーに送信
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: question,
+              conversation_id: conversationId
+            })
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            
+            // AIの回答を追加
+            addMessage(data.response, false);
+            
+            // 関連ブログを表示（サーバーから取得した場合）
+            if (data.blog_links && data.blog_links.length > 0) {
+              showBlogLinks(data.blog_links);
+            }
+          } else {
+            throw new Error('サーバーエラー: ' + response.status);
+          }
+          
+        } catch (error) {
+          console.error('エラー:', error);
+          
+          // オフライン機能として基本的な回答を提供
+          const offlineAnswer = getOfflineAnswer(question);
+          addMessage(offlineAnswer, false);
+          
+          // オフライン回答内容に関連するブログを検索して表示
+          searchRelatedBlogs(offlineAnswer);
+        } finally {
+          // UI復元
+          submitBtn.disabled = false;
+          loading.classList.remove('show');
+        }
+      });
+
+      // Enterキーで送信
+      document.getElementById('question').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          document.getElementById('questionForm').dispatchEvent(new Event('submit'));
+        }
+      });
+
+      // ページ読み込み時に新しい会話を開始
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          // 新しい会話を開始
+          startNewConversation();
+          
+          // 初期メッセージを表示
+          setTimeout(() => {
+            addMessage("こんにちは！キャンピングカーの修理について何でもお聞かせください。エンジンの問題、電気系統の故障、給排水の問題など、どんなことでもお気軽にご相談ください。", false);
+          }, 500);
+          
+          // サーバー接続テスト
+          fetch('/api/health')
+            .then(response => response.json())
+            .then(data => console.log('サーバー接続確認:', data))
+            .catch(error => console.log('サーバー接続エラー:', error));
+            
+        } catch (error) {
+          console.error('初期化エラー:', error);
+        }
+      });
+    </script>
+</body>
+</html>

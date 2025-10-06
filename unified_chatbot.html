@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 キャンピングカー修理チャットボット</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-online { background-color: #28a745; }
+        .status-offline { background-color: #dc3545; }
+        .status-warning { background-color: #ffc107; }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            min-height: 500px;
+        }
+
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .message {
+            margin: 15px 0;
+            padding: 15px 20px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .message-user {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            margin-left: auto;
+            border-radius: 20px 20px 5px 20px;
+        }
+
+        .message-ai {
+            background: white;
+            color: #333;
+            border: 2px solid #e9ecef;
+            border-radius: 20px 20px 20px 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .message-system {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            font-style: italic;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100%); }
+        }
+
+        .debug-panel {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .debug-panel.show {
+            display: block;
+        }
+
+        .debug-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .debug-content {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* 診断フロー専用スタイル */
+        .diagnostic-flow-container {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+            display: none;
+        }
+
+        .diagnostic-flow-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .diagnostic-progress {
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .diagnostic-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagnostic-question h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .diagnostic-question p {
+            color: #333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .diagnostic-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .option-btn:hover {
+            border-color: #28a745;
+            background: #f8fff8;
+            transform: translateX(5px);
+        }
+
+        .option-btn.selected {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .diagnostic-result {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .diagnostic-result.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .result-header h3 {
+            color: #28a745;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .confidence-meter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .confidence-value {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .related-cases, .required-parts {
+            margin-bottom: 25px;
+        }
+
+        .related-cases h4, .required-parts h4 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .case-item, .part-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #28a745;
+        }
+
+        .case-title, .part-name {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .case-description, .part-info {
+            color: #6c757d;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .case-url, .part-price {
+            margin-top: 8px;
+            font-size: 0.8rem;
+        }
+
+        .case-url a {
+            color: #28a745;
+            text-decoration: none;
+        }
+
+        .case-url a:hover {
+            text-decoration: underline;
+        }
+
+        .emergency-warning {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #c82333;
+        }
+
+        .emergency-warning h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .emergency-warning p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #667eea;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .quick-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .new-conversation-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .new-conversation-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .new-conversation-btn:hover {
+            background: linear-gradient(135deg, #218838, #1ea085);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .conversation-info {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* リンクのスタイル */
+        .message a {
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .message a:hover {
+            color: #5a6fd8;
+            text-decoration: none;
+            background-color: rgba(102, 126, 234, 0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .blog-link-item {
+            transition: all 0.3s ease;
+        }
+
+        .blog-link-item:hover {
+            background-color: #e9ecef !important;
+            transform: translateX(5px);
+        }
+
+        .blog-link-item a:hover {
+            color: #5a6fd8 !important;
+            text-decoration: underline !important;
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 30px;
+        }
+
+        /* 関連ブログリンクのスタイル */
+        .blog-link {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .blog-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <h1>🔧 キャンピングカー修理チャットボット</h1>
+            <p class="hidden">AI診断 + RAG検索 + リアルタイム情報 + 専門知識 = 修理支援</p>
+            
+            <!-- 新しい会話開始ボタン -->
+            <div class="new-conversation-section hidden">
+                <button class="new-conversation-btn" onclick="startNewConversation()">
+                    🆕 新しい会話を開始
+                </button>
+                <span class="conversation-info">新しいセッションでAPIキーを更新</span>
+            </div>
+            
+            <!-- ステータスバー -->
+            <div class="status-bar hidden">
+                <div class="status-item">
+                    <div class="status-indicator status-offline" id="apiStatus"></div>
+                    <span>統合API</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator status-offline" id="aiStatus"></div>
+                    <span>AI エンジン</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator status-offline" id="ragStatus"></div>
+                    <span>RAG システム</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- チャットコンテナ -->
+        <div class="chat-container">
+            <!-- モード選択 -->
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="chat">🤖 統合チャット</button>
+                <button class="mode-btn" data-mode="diagnostic">🔍 症状診断</button>
+                <button class="mode-btn hidden" data-mode="repair_search">🛠️ 修理検索</button>
+                <button class="mode-btn" data-mode="cost_estimate">🔧 修理アドバイスセンター</button>
+            </div>
+
+            <!-- クイックアクション -->
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="sendQuickMessage('バッテリーが上がりません')">バッテリー上がり</button>
+                <button class="quick-btn" onclick="sendQuickMessage('トイレが詰まりました')">トイレ詰まり</button>
+                <button class="quick-btn" onclick="sendQuickMessage('エアコンが効きません')">エアコン故障</button>
+                <button class="quick-btn" onclick="sendQuickMessage('雨漏りがします')">雨漏り</button>
+                <button class="quick-btn" onclick="sendQuickMessage('修理費用を知りたい')">費用相談</button>
+            </div>
+
+            <!-- チャットメッセージ -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message message-system">
+                    🔧 キャンピングカー修理チャットボットにようこそ！<br>
+                    修理について何でもお聞きください。AI診断、詳細検索、費用相談など、あらゆる機能を統合しています。
+                </div>
+                
+                <!-- 関連ブログセクション -->
+                <div class="message message-system" style="background: #f8f9fa; border-left: 4px solid #667eea; margin: 20px 0;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">📚 関連ブログ</h3>
+                    <p style="margin-bottom: 15px; color: #666;">より詳しい情報は修理ブログ一覧をご覧ください。</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="https://camper-repair.net/blog/repair1/" target="_blank" class="blog-link">
+                            🔋 バッテリー・バッテリーの故障と修理方法
+                        </a>
+                        <a href="https://camper-repair.net/blog/risk1/" target="_blank" class="blog-link">
+                            🛠️ 基本修理・キャンピングカー修理の基本
+                        </a>
+                        <a href="https://camper-repair.net/battery-selection/" target="_blank" class="blog-link">
+                            🔍 定期点検・定期点検とメンテナンス
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 診断フローコンテナ -->
+            <div class="diagnostic-flow-container" id="diagnosticFlowContainer">
+                <!-- 診断進行状況 -->
+                <div class="diagnostic-progress">
+                    <div class="progress-header">
+                        <span class="progress-text" id="progressText">診断を開始しています...</span>
+                        <span id="progressStep">1/5</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <!-- 緊急警告 -->
+                <div class="emergency-warning hidden" id="emergencyWarning">
+                    <h4>🚨 緊急警告</h4>
+                    <p id="emergencyText">危険な症状が検出されました。直ちに安全対策を講じてください。</p>
+                </div>
+
+                <!-- 診断質問 -->
+                <div class="diagnostic-question">
+                    <h3>🔍 診断質問</h3>
+                    <p id="currentQuestion">症状を詳しく教えてください</p>
+                </div>
+
+                <!-- 選択肢 -->
+                <div class="diagnostic-options" id="diagnosticOptions">
+                    <!-- 選択肢が動的に生成される -->
+                </div>
+
+                <!-- 診断結果 -->
+                <div class="diagnostic-result" id="diagnosticResult">
+                    <div class="result-header">
+                        <h3>🔍 診断結果</h3>
+                        <div class="confidence-meter">
+                            <span class="confidence-value" id="confidenceValue">85%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-content" id="resultContent">
+                        <!-- 診断結果の内容 -->
+                    </div>
+
+                    <div class="related-cases">
+                        <h4>🔧 関連修理ケース</h4>
+                        <div id="relatedCasesContent">
+                            <!-- Notionデータベースからのケース表示 -->
+                        </div>
+                    </div>
+
+                    <div class="required-parts">
+                        <h4>🛠️ 必要な部品・工具</h4>
+                        <div id="requiredPartsContent">
+                            <!-- 部品情報表示 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ローディング -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                AIが回答を生成中...
+            </div>
+
+            <!-- 入力フォーム -->
+            <div class="input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="修理について質問してください..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">送信</button>
+            </div>
+
+            <!-- デバッグパネル -->
+            <div class="debug-panel" id="debugPanel">
+                <div class="debug-title">🔍 デバッグ情報</div>
+                <div class="debug-content" id="debugContent"></div>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <div class="footer">
+            <p>© 2024 キャンピングカー修理チャットボット - 統合AIシステム</p>
+        </div>
+    </div>
+
+    <script>
+        // グローバル変数
+        let currentMode = 'chat';
+        let isProcessing = false;
+        let debugMode = false;
+        
+        // 診断フロー用変数
+        let diagnosticSession = null;
+        let diagnosticFlow = null;
+        let currentDiagnosticNode = null;
+        let diagnosticHistory = [];
+        let conversationId = null;
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSystemStatus();
+            setupEventListeners();
+            startNewConversation();
+            
+            // デフォルトモードを設定
+            setMode('chat');
+            console.log('初期化完了、デフォルトモード: chat');
+        });
+
+        // 新しい会話開始
+        async function startNewConversation() {
+            try {
+                // まず会話を開始
+                const response = await fetch('http://localhost:5002/start_conversation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    conversationId = data.conversation_id;
+                    console.log('新しい会話を開始しました:', conversationId);
+                    
+                    // チャットメッセージをクリア
+                    const chatMessages = document.getElementById('chatMessages');
+                    if (chatMessages) {
+                        chatMessages.innerHTML = '';
+                        addMessage('🆕 新しい会話を開始しました。何でもお聞きください！', 'ai');
+                    }
+                    
+                    // 成功メッセージを表示
+                    showNotification('新しい会話を開始しました。APIキーが更新されました。', 'success');
+                    
+                    // テストメッセージを送信してAPIキーを確認
+                    await testApiKey();
+                } else {
+                    console.error('新しい会話開始エラー:', response.status);
+                    showNotification('新しい会話の開始に失敗しました。', 'error');
+                }
+            } catch (error) {
+                console.error('新しい会話開始エラー:', error);
+                showNotification('新しい会話の開始中にエラーが発生しました。', 'error');
+            }
+        }
+
+        // APIキーテスト
+        async function testApiKey() {
+            try {
+                const testResponse = await fetch('http://localhost:5002/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        question: 'APIキーのテスト'
+                    })
+                });
+                
+                if (testResponse.ok) {
+                    console.log('APIキーテスト成功');
+                    showNotification('APIキーが正常に動作しています！', 'success');
+                } else {
+                    const errorData = await testResponse.json();
+                    console.error('APIキーテストエラー:', errorData);
+                    showNotification('APIキーに問題があります。管理者にお問い合わせください。', 'error');
+                }
+            } catch (error) {
+                console.error('APIキーテストエラー:', error);
+                showNotification('APIキーテスト中にエラーが発生しました。', 'error');
+            }
+        }
+
+        // 通知表示（非表示化）
+        function showNotification(message, type = 'info') {
+            // 通知を非表示にするため、何もしない
+            return;
+        }
+
+        // イベントリスナーの設定
+        function setupEventListeners() {
+            // モードボタンのイベント
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('モードボタンがクリックされました:', this.dataset.mode);
+                    setMode(this.dataset.mode);
+                });
+            });
+            
+            // デバッグ用: モードボタンの状態を確認
+            console.log('モードボタンの数:', document.querySelectorAll('.mode-btn').length);
+            document.querySelectorAll('.mode-btn').forEach((btn, index) => {
+                console.log(`ボタン ${index}:`, btn.textContent, 'data-mode:', btn.dataset.mode);
+            });
+        }
+
+        // システム状態の確認
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch('http://localhost:5002/api/unified/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    updateStatusIndicators(data.services);
+                } else {
+                    updateStatusIndicators({});
+                }
+            } catch (error) {
+                console.error('システム状態確認エラー:', error);
+                updateStatusIndicators({});
+            }
+        }
+
+        // ステータスインジケーターの更新
+        function updateStatusIndicators(services) {
+            const apiStatus = document.getElementById('apiStatus');
+            const aiStatus = document.getElementById('aiStatus');
+            const ragStatus = document.getElementById('ragStatus');
+
+            // API状態
+            apiStatus.className = 'status-indicator ' + (services.rag_system ? 'status-online' : 'status-offline');
+            
+            // AI状態
+            aiStatus.className = 'status-indicator ' + (services.openai_api ? 'status-online' : 'status-offline');
+            
+            // RAG状態
+            ragStatus.className = 'status-indicator ' + (services.rag_system ? 'status-online' : 'status-warning');
+        }
+
+        // モード設定
+        function setMode(mode) {
+            currentMode = mode;
+            console.log('モードを変更:', mode);
+            
+            // ボタンの状態更新
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            
+            // モードに応じた処理
+            switch(mode) {
+                case 'chat':
+                    updateChatMode();
+                    break;
+                case 'diagnostic':
+                    updateDiagnosticMode();
+                    break;
+                case 'repair_search':
+                    updateRepairSearchMode();
+                    break;
+                case 'cost_estimate':
+                    updateCostEstimateMode();
+                    break;
+                default:
+                    console.log('未知のモード:', mode);
+            }
+        }
+
+        // チャットモードの更新
+        function updateChatMode() {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.placeholder = '修理について質問してください...';
+            }
+            console.log('チャットモードに切り替え');
+            
+            // 診断フローコンテナを非表示
+            hideDiagnosticFlow();
+        }
+
+        // 診断フローを非表示
+        function hideDiagnosticFlow() {
+            const diagnosticContainer = document.getElementById('diagnosticFlowContainer');
+            if (diagnosticContainer) {
+                diagnosticContainer.classList.remove('active');
+            }
+        }
+
+        // 診断モードの更新
+        function updateDiagnosticMode() {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.placeholder = '症状を詳しく教えてください（例：エアコンが効かない、異音がする）...';
+            }
+            console.log('診断モードに切り替え');
+            
+            // 診断フローコンテナを表示
+            showDiagnosticFlow();
+            
+            // 診断セッションを開始
+            startDiagnosticSession();
+        }
+
+        // 診断フローを表示
+        function showDiagnosticFlow() {
+            const diagnosticContainer = document.getElementById('diagnosticFlowContainer');
+            if (diagnosticContainer) {
+                diagnosticContainer.classList.add('active');
+                diagnosticContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 診断セッションを開始
+        async function startDiagnosticSession() {
+            try {
+                console.log('🔍 診断セッション開始');
+                
+                // 診断開始APIを呼び出し
+                const response = await fetch('/chat/diagnose/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        category: getSelectedCategory(),
+                        user_input: "水道ポンプから異音がする" // テスト用の初期入力
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('診断開始レスポンス:', data);
+
+                if (data.session_id) {
+                    diagnosticSession = data.session_id;
+                    currentDiagnosticNode = data.node_id;
+                    diagnosticHistory = [data.node_id];
+                    
+                    // フォールバック診断の場合はメッセージを表示
+                    if (data.fallback) {
+                        addMessage('フォールバック診断モードで開始しました。基本的な診断を行います。', 'ai');
+                    }
+                    
+                    // 診断質問を表示
+                    displayDiagnosticQuestion(data);
+                    
+                    // 緊急警告があれば表示
+                    if (data.safety && data.safety.urgent) {
+                        showEmergencyWarning(data.safety.notes);
+                    }
+                } else {
+                    throw new Error('診断セッションの開始に失敗しました');
+                }
+            } catch (error) {
+                console.error('診断セッション開始エラー:', error);
+                console.error('エラー詳細:', error.message);
+                console.error('レスポンスステータス:', response?.status);
+                console.error('レスポンス内容:', data);
+                
+                // より詳細なエラーメッセージを表示
+                let errorMessage = '診断システムの初期化に失敗しました。';
+                if (error.message.includes('fetch')) {
+                    errorMessage += ' サーバーに接続できません。';
+                } else if (error.message.includes('JSON')) {
+                    errorMessage += ' レスポンスの解析に失敗しました。';
+                } else {
+                    errorMessage += ` エラー: ${error.message}`;
+                }
+                errorMessage += ' 通常のチャットモードをご利用ください。';
+                
+                addMessage(errorMessage, 'ai');
+            }
+        }
+
+        // 診断質問を表示
+        function displayDiagnosticQuestion(data) {
+            const questionElement = document.getElementById('currentQuestion');
+            const progressElement = document.getElementById('progressText');
+            
+            if (questionElement) {
+                questionElement.textContent = data.question || '症状を詳しく教えてください';
+            }
+            
+            if (progressElement) {
+                progressElement.textContent = '診断進行中...';
+            }
+            
+            // 選択肢を表示
+            displayDiagnosticOptions(data.options || []);
+        }
+
+        // 診断選択肢を表示
+        function displayDiagnosticOptions(options) {
+            const optionsContainer = document.getElementById('diagnosticOptions');
+            if (!optionsContainer) return;
+            
+            optionsContainer.innerHTML = '';
+            
+            if (options.length === 0) {
+                // 選択肢がない場合は自由入力
+                optionsContainer.innerHTML = `
+                    <div class="option-btn" onclick="submitDiagnosticAnswer('')">
+                        自由記述で回答する
+                    </div>
+                `;
+            } else {
+                options.forEach((option, index) => {
+                    const optionBtn = document.createElement('div');
+                    optionBtn.className = 'option-btn';
+                    optionBtn.textContent = option.text || option;
+                    optionBtn.onclick = () => submitDiagnosticAnswer(option.text || option);
+                    optionsContainer.appendChild(optionBtn);
+                });
+            }
+        }
+
+        // 診断回答を送信
+        async function submitDiagnosticAnswer(answer) {
+            if (!diagnosticSession || !currentDiagnosticNode) {
+                console.error('診断セッションが無効です');
+                return;
+            }
+
+            try {
+                console.log('🔍 診断回答送信:', answer);
+                
+                // 選択されたボタンをハイライト
+                const selectedBtn = event.target;
+                if (selectedBtn) {
+                    selectedBtn.classList.add('selected');
+                    setTimeout(() => selectedBtn.classList.remove('selected'), 1000);
+                }
+                
+                // 診断回答APIを呼び出し
+                const response = await fetch('/chat/diagnose/answer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: diagnosticSession,
+                        node_id: currentDiagnosticNode,
+                        answer_text: answer
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('診断回答レスポンス:', data);
+
+                if (data.is_terminated) {
+                    // 診断終了
+                    displayDiagnosticResult(data);
+                } else {
+                    // 次の質問へ
+                    currentDiagnosticNode = data.node_id;
+                    diagnosticHistory.push(data.node_id);
+                    displayDiagnosticQuestion(data);
+                    updateProgress();
+                }
+            } catch (error) {
+                console.error('診断回答エラー:', error);
+                addMessage('診断処理中にエラーが発生しました。', 'ai');
+            }
+        }
+
+        // 診断結果を表示
+        function displayDiagnosticResult(data) {
+            console.log('🔍 診断結果表示:', data);
+            
+            // 進捗を100%に
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = '100%';
+            }
+            
+            const progressText = document.getElementById('progressText');
+            if (progressText) {
+                progressText.textContent = '診断完了';
+            }
+            
+            // 質問エリアを非表示
+            const questionArea = document.querySelector('.diagnostic-question');
+            const optionsArea = document.getElementById('diagnosticOptions');
+            if (questionArea) questionArea.style.display = 'none';
+            if (optionsArea) optionsArea.style.display = 'none';
+            
+            // 診断結果を表示
+            const resultContainer = document.getElementById('diagnosticResult');
+            if (resultContainer) {
+                resultContainer.classList.add('active');
+                
+                // 確信度を表示
+                const confidenceElement = document.getElementById('confidenceValue');
+                if (confidenceElement && data.confidence) {
+                    confidenceElement.textContent = `${Math.round(data.confidence * 100)}%`;
+                }
+                
+                // 診断結果内容を表示
+                const resultContent = document.getElementById('resultContent');
+                if (resultContent && data.summary) {
+                    resultContent.innerHTML = `
+                        <div class="case-item">
+                            <div class="case-title">${data.summary.title || '診断結果'}</div>
+                            <div class="case-description">${data.summary.details || data.summary.next_steps || ''}</div>
+                        </div>
+                    `;
+                }
+                
+                // 関連ケースを表示
+                if (data.related_cases && data.related_cases.length > 0) {
+                    displayRelatedCases(data.related_cases);
+                }
+                
+                // 必要な部品を表示
+                if (data.required_parts && data.required_parts.length > 0) {
+                    displayRequiredParts(data.required_parts);
+                }
+            }
+        }
+
+        // 関連ケースを表示
+        function displayRelatedCases(cases) {
+            const casesContainer = document.getElementById('relatedCasesContent');
+            if (!casesContainer) return;
+            
+            casesContainer.innerHTML = '';
+            
+            cases.forEach(caseItem => {
+                const caseElement = document.createElement('div');
+                caseElement.className = 'case-item';
+                
+                const caseTitle = caseItem.title || caseItem.case_id || '修理ケース';
+                const caseDescription = caseItem.description || caseItem.solution || '';
+                const caseUrl = caseItem.url || '';
+                
+                caseElement.innerHTML = `
+                    <div class="case-title">${caseTitle}</div>
+                    <div class="case-description">${caseDescription}</div>
+                    ${caseUrl ? `<div class="case-url"><a href="${caseUrl}" target="_blank">詳細を見る</a></div>` : ''}
+                `;
+                
+                casesContainer.appendChild(caseElement);
+            });
+        }
+
+        // 必要な部品を表示
+        function displayRequiredParts(parts) {
+            const partsContainer = document.getElementById('requiredPartsContent');
+            if (!partsContainer) return;
+            
+            partsContainer.innerHTML = '';
+            
+            parts.forEach(part => {
+                const partElement = document.createElement('div');
+                partElement.className = 'part-item';
+                
+                const partName = part.name || part.title || '部品';
+                const partInfo = part.description || part.info || '';
+                const partPrice = part.price || '';
+                
+                partElement.innerHTML = `
+                    <div class="part-name">${partName}</div>
+                    <div class="part-info">${partInfo}</div>
+                    ${partPrice ? `<div class="part-price">参考価格: ${partPrice}</div>` : ''}
+                `;
+                
+                partsContainer.appendChild(partElement);
+            });
+        }
+
+        // 緊急警告を表示
+        function showEmergencyWarning(message) {
+            const warningElement = document.getElementById('emergencyWarning');
+            const warningText = document.getElementById('emergencyText');
+            
+            if (warningElement && warningText) {
+                warningText.textContent = message;
+                warningElement.classList.remove('hidden');
+                warningElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 進捗を更新
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const progressStep = document.getElementById('progressStep');
+            
+            if (progressFill && diagnosticHistory.length > 0) {
+                const progress = Math.min((diagnosticHistory.length / 5) * 100, 90); // 最大90%まで
+                progressFill.style.width = `${progress}%`;
+            }
+            
+            if (progressStep) {
+                progressStep.textContent = `${diagnosticHistory.length}/5`;
+            }
+        }
+
+        // 選択されたカテゴリを取得
+        function getSelectedCategory() {
+            // 現在のモードやユーザーの選択に基づいてカテゴリを決定
+            // 簡易実装として、診断モードでは一般的なカテゴリを返す
+            return 'general';
+        }
+
+        // 修理検索モードの更新
+        function updateRepairSearchMode() {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.placeholder = '修理したい部品や症状を入力してください...';
+            }
+            console.log('修理検索モードに切り替え');
+        }
+
+        // 修理アドバイスセンターの更新
+        function updateCostEstimateMode() {
+            console.log('修理アドバイスセンターに切り替え - 修理アドバイスセンターに遷移します');
+            
+            // 修理アドバイスセンターに遷移
+            window.location.href = '/repair_advice_center.html';
+        }
+
+        // メッセージ送信
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message || isProcessing) return;
+            
+            // ユーザーメッセージを表示
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // 処理開始
+            setProcessing(true);
+            
+            // モードに応じたメッセージの前処理
+            let processedMessage = message;
+            if (currentMode === 'cost_estimate') {
+                // 修理アドバイスセンターの場合は、修理アドバイスセンターに誘導
+                addMessage(`
+                    <div style="background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 20px; border-radius: 15px; margin: 10px 0; text-align: center;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 1.3rem;">🔧 修理アドバイスセンター</h3>
+                        <p style="margin: 0 0 15px 0; font-size: 1.1rem;">「${message}」について</p>
+                        <p style="margin: 0 0 15px 0; font-size: 1rem;">詳細な価格情報と商品データを確認するには、修理アドバイスセンターをご利用ください。</p>
+                        <button onclick="openRepairAdviceCenter()" style="
+                            background: white; 
+                            color: #28a745; 
+                            border: none; 
+                            padding: 12px 24px; 
+                            border-radius: 25px; 
+                            font-weight: bold; 
+                            font-size: 1rem; 
+                            cursor: pointer; 
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+                            🚀 修理アドバイスセンターで詳細を確認
+                        </button>
+                    </div>
+                `, 'ai');
+                setProcessing(false);
+                return;
+            } else if (currentMode === 'diagnostic') {
+                processedMessage = `症状診断: ${message}`;
+                
+                // 診断モードでは追加の診断情報を提供
+                setTimeout(() => {
+                    addMessage(`
+                        <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <h4 style="margin: 0 0 10px 0; color: #1976d2;">🔍 診断を進めるために</h4>
+                            <p style="margin: 0 0 10px 0; color: #424242;">
+                                より詳細な診断を行うために、以下の点についても教えてください：
+                            </p>
+                            <ul style="margin: 0; color: #424242; padding-left: 20px;">
+                                <li>症状が発生する条件（エンジン始動時、走行中、停車時など）</li>
+                                <li>異常音や振動の有無</li>
+                                <li>警告灯の点灯状況</li>
+                                <li>最近の修理・交換履歴</li>
+                            </ul>
+                            <p style="margin: 10px 0 0 0; color: #1976d2; font-size: 0.9rem;">
+                                💡 詳細な診断には修理アドバイスセンターもご利用ください
+                            </p>
+                        </div>
+                    `, 'ai');
+                }, 2000);
+            } else if (currentMode === 'repair_search') {
+                processedMessage = `修理検索: ${message}`;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:5002/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        question: processedMessage
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    displayResponse(data);
+                } else {
+                    const error = await response.json();
+                    addMessage(`❌ エラー: ${error.error}`, 'ai');
+                }
+            } catch (error) {
+                addMessage(`❌ 接続エラー: ${error.message}`, 'ai');
+            } finally {
+                setProcessing(false);
+            }
+        }
+
+        // クイックメッセージ送信
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        // レスポンス表示
+        function displayResponse(data) {
+            if (data.error) {
+                addMessage(`❌ エラー: ${data.error}`, 'ai');
+                return;
+            }
+            
+            let responseText = '';
+            
+            if (data.answer) {
+                responseText = data.answer;
+            } else if (data.type === 'chat') {
+                responseText = data.response;
+            } else if (data.type === 'diagnostic') {
+                responseText = formatDiagnosticResponse(data);
+            } else if (data.type === 'repair_search') {
+                responseText = formatRepairSearchResponse(data);
+            } else if (data.type === 'cost_estimate') {
+                responseText = formatCostEstimateResponse(data);
+            }
+            
+            addMessage(responseText, 'ai');
+            
+            // デバッグ情報の表示（非表示）
+            // if (debugMode) {
+            //     showDebugInfo(data);
+            // }
+        }
+
+        // 診断レスポンスのフォーマット
+        function formatDiagnosticResponse(data) {
+            let response = '';
+            
+            if (data.type === 'notion_diagnostic') {
+                // Notion診断フローの結果
+                response += '🔍 **Notion診断フロー**\n\n';
+                
+                if (data.current_node) {
+                    const node = data.current_node;
+                    response += `**診断ノード:** ${node.title || 'Unknown'}\n`;
+                    response += `**カテゴリ:** ${node.category || 'N/A'}\n\n`;
+                    
+                    if (node.symptoms && node.symptoms.length > 0) {
+                        response += `**関連症状:**\n`;
+                        node.symptoms.forEach(symptom => {
+                            response += `• ${symptom}\n`;
+                        });
+                        response += '\n';
+                    }
+                }
+                
+                if (data.related_cases && data.related_cases.length > 0) {
+                    response += `**関連修理ケース:**\n`;
+                    data.related_cases.slice(0, 3).forEach(case_item => {
+                        response += `• ${case_item.title || 'Unknown Case'}\n`;
+                        if (case_item.solution) {
+                            response += `  - ${case_item.solution.substring(0, 100)}...\n`;
+                        }
+                    });
+                    response += '\n';
+                }
+                
+                response += `**診断信頼度:** ${Math.round((data.confidence || 0) * 100)}%\n`;
+                
+            } else if (data.diagnosis) {
+                // AI診断の結果
+                response += '🔍 **AI診断結果**\n\n';
+                
+                response += `**可能性のある原因:**\n`;
+                data.diagnosis.possible_causes.forEach(cause => {
+                    response += `• ${cause}\n`;
+                });
+                
+                response += `\n**推奨対処法:**\n`;
+                data.diagnosis.recommended_actions.forEach(action => {
+                    response += `• ${action}\n`;
+                });
+                
+                response += `\n**緊急度:** ${data.diagnosis.urgency}\n`;
+                response += `**信頼度:** ${Math.round(data.diagnosis.confidence * 100)}%\n`;
+                
+                if (data.fallback) {
+                    response += `\n⚠️ **注意:** Notion診断が利用できないため、AI診断を使用しています。\n`;
+                }
+            }
+            
+            return response;
+        }
+
+        // 修理検索レスポンスのフォーマット
+        function formatRepairSearchResponse(data) {
+            let response = '🛠️ **修理検索結果**\n\n';
+            
+            if (data.repair_info && data.repair_info.category) {
+                response += `**カテゴリ:** ${data.repair_info.category}\n`;
+                response += `**アイコン:** ${data.repair_info.icon}\n\n`;
+                
+                if (data.repair_info.repair_costs) {
+                    response += `**修理費用:**\n${data.repair_info.repair_costs}\n\n`;
+                }
+                
+                if (data.repair_info.repair_steps) {
+                    response += `**修理手順:**\n${data.repair_info.repair_steps}\n\n`;
+                }
+                
+                if (data.repair_info.warnings) {
+                    response += `**注意事項:**\n${data.repair_info.warnings}\n\n`;
+                }
+            }
+            
+            return response;
+        }
+
+        // 費用見積もりレスポンスのフォーマット
+        function formatCostEstimateResponse(data) {
+            let response = '💰 **費用見積もり**\n\n';
+            
+            if (data.category) {
+                response += `**カテゴリ:** ${data.category}\n\n`;
+            }
+            
+            if (data.cost_info) {
+                response += `**費用情報:**\n${data.cost_info}\n\n`;
+            }
+            
+            if (data.price_results && data.price_results.results) {
+                response += `**価格情報:**\n`;
+                data.price_results.results.forEach((item, index) => {
+                    response += `${index + 1}. ${item.title}\n`;
+                    if (item.price_info && item.price_info.price) {
+                        response += `   価格: ${item.price_info.price}円\n`;
+                    }
+                    response += `   URL: ${item.url}\n\n`;
+                });
+            }
+            
+            return response;
+        }
+
+        // メッセージ追加
+        function addMessage(content, type) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message message-${type}`;
+            messageDiv.innerHTML = formatMessageContent(content);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // メッセージコンテンツのフォーマット
+        function formatMessageContent(content) {
+            console.log('元のコンテンツ:', content);
+            
+            // マークダウン風のフォーマット
+            let formatted = content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+            
+            console.log('マークダウン変換後:', formatted);
+            
+            // ブログリンクの表示を改善
+            formatted = formatBlogLinks(formatted);
+            
+            console.log('ブログリンク変換後:', formatted);
+            
+            // URLをクリック可能なリンクに変換
+            formatted = convertUrlsToLinks(formatted);
+            
+            console.log('最終的なフォーマット:', formatted);
+            
+            return formatted;
+        }
+
+        // URLをクリック可能なリンクに変換
+        function convertUrlsToLinks(text) {
+            // より簡単で確実なURL検出
+            const urlPattern = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlPattern, function(url) {
+                // URLが既にリンクタグで囲まれている場合はスキップ
+                if (text.includes(`<a href="${url}">`)) {
+                    return url;
+                }
+                console.log('URLを検出:', url);
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: underline; font-weight: bold; cursor: pointer;">${url}</a>`;
+            });
+        }
+
+        // ブログ記事の表示を改善
+        function formatBlogLinks(content) {
+            // ブログ記事のパターンを検出して改善（より柔軟なパターン）
+            const blogPattern = /•\s*([^:]+):\s*(https?:\/\/[^\s<>"{}|\\^`[\]]+)/g;
+            return content.replace(blogPattern, function(match, title, url) {
+                return `<div class="blog-link-item" style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; cursor: pointer;" onclick="window.open('${url}', '_blank')">
+                    <div class="blog-title" style="font-weight: bold; color: #333; margin-bottom: 5px;">${title}</div>
+                    <div style="color: #667eea; font-size: 0.9rem; text-decoration: underline;">
+                        🔗 ${url}
+                    </div>
+                </div>`;
+            });
+        }
+
+        // 処理状態の設定
+        function setProcessing(processing) {
+            isProcessing = processing;
+            const loading = document.getElementById('loading');
+            const sendBtn = document.getElementById('sendBtn');
+            
+            if (processing) {
+                loading.classList.add('show');
+                sendBtn.disabled = true;
+                sendBtn.textContent = '処理中...';
+            } else {
+                loading.classList.remove('show');
+                sendBtn.disabled = false;
+                sendBtn.textContent = '送信';
+            }
+        }
+
+        // キー入力処理
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // デバッグ情報の表示
+        function showDebugInfo(data) {
+            const debugContent = document.getElementById('debugContent');
+            debugContent.textContent = JSON.stringify(data, null, 2);
+        }
+
+        // デバッグ情報を取得
+        async function fetchDebugInfo() {
+            try {
+                const response = await fetch('http://localhost:5002/api/unified/debug');
+                if (response.ok) {
+                    const debugData = await response.json();
+                    displayDebugInfo(debugData);
+                } else {
+                    console.error('デバッグ情報の取得に失敗しました');
+                }
+            } catch (error) {
+                console.error('デバッグ情報取得エラー:', error);
+            }
+        }
+
+        // デバッグ情報を表示
+        function displayDebugInfo(data) {
+            const debugContent = document.getElementById('debugContent');
+            let html = '<div style="font-family: Arial, sans-serif;">';
+            
+            // 環境変数チェック
+            html += '<h3 style="color: #667eea; margin-bottom: 10px;">🔧 環境変数チェック</h3>';
+            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">';
+            for (const [key, value] of Object.entries(data.environment_variables)) {
+                const color = value.includes('✅') ? '#28a745' : '#dc3545';
+                html += `<div style="padding: 5px; border: 1px solid #dee2e6; border-radius: 5px;"><strong>${key}:</strong> <span style="color: ${color}">${value}</span></div>`;
+            }
+            html += '</div>';
+            
+            // APIキー情報
+            html += '<h3 style="color: #667eea; margin-bottom: 10px;">🔑 APIキー情報</h3>';
+            html += '<div style="margin-bottom: 20px;">';
+            for (const [key, value] of Object.entries(data.api_keys)) {
+                if (value) {
+                    html += `<div style="padding: 5px; background: #f8f9fa; border-radius: 5px; margin-bottom: 5px;"><strong>${key}:</strong> ${value}</div>`;
+                }
+            }
+            html += '</div>';
+            
+            // データベースID
+            html += '<h3 style="color: #667eea; margin-bottom: 10px;">🗄️ データベースID</h3>';
+            html += '<div style="margin-bottom: 20px;">';
+            for (const [key, value] of Object.entries(data.database_ids)) {
+                const color = value ? '#28a745' : '#dc3545';
+                html += `<div style="padding: 5px; background: #f8f9fa; border-radius: 5px; margin-bottom: 5px;"><strong>${key}:</strong> <span style="color: ${color}">${value || '未設定'}</span></div>`;
+            }
+            html += '</div>';
+            
+            // ファイルチェック
+            html += '<h3 style="color: #667eea; margin-bottom: 10px;">📁 ファイルチェック</h3>';
+            html += '<div style="margin-bottom: 20px;">';
+            for (const [key, value] of Object.entries(data.file_checks)) {
+                const color = value.includes('✅') ? '#28a745' : '#dc3545';
+                html += `<div style="padding: 5px; background: #f8f9fa; border-radius: 5px; margin-bottom: 5px;"><strong>${key}:</strong> <span style="color: ${color}">${value}</span></div>`;
+            }
+            html += '</div>';
+            
+            // サービス状態
+            html += '<h3 style="color: #667eea; margin-bottom: 10px;">⚙️ サービス状態</h3>';
+            html += '<div style="margin-bottom: 20px;">';
+            for (const [key, value] of Object.entries(data.services_status)) {
+                const color = value ? '#28a745' : '#dc3545';
+                const status = value ? '✅ 動作中' : '❌ 停止';
+                html += `<div style="padding: 5px; background: #f8f9fa; border-radius: 5px; margin-bottom: 5px;"><strong>${key}:</strong> <span style="color: ${color}">${status}</span></div>`;
+            }
+            html += '</div>';
+            
+            // データ可用性
+            html += '<h3 style="color: #667eea; margin-bottom: 10px;">📊 データ可用性</h3>';
+            html += '<div style="margin-bottom: 20px;">';
+            const diagnosticColor = data.diagnostic_data_available ? '#28a745' : '#dc3545';
+            const repairColor = data.repair_cases_available ? '#28a745' : '#dc3545';
+            html += `<div style="padding: 5px; background: #f8f9fa; border-radius: 5px; margin-bottom: 5px;"><strong>診断データ:</strong> <span style="color: ${diagnosticColor}">${data.diagnostic_data_available ? '✅ 利用可能' : '❌ 利用不可'}</span></div>`;
+            html += `<div style="padding: 5px; background: #f8f9fa; border-radius: 5px; margin-bottom: 5px;"><strong>修理ケース:</strong> <span style="color: ${repairColor}">${data.repair_cases_available ? '✅ 利用可能' : '❌ 利用不可'}</span></div>`;
+            html += '</div>';
+            
+            html += '</div>';
+            debugContent.innerHTML = html;
+        }
+
+        // デバッグモードの切り替え（非表示）
+        function toggleDebug() {
+            // debugMode = !debugMode;
+            // const debugPanel = document.getElementById('debugPanel');
+            // debugPanel.classList.toggle('show');
+            
+            // if (debugMode) {
+            //     fetchDebugInfo();
+            // }
+        }
+    </script>
+</body>
+</html>
