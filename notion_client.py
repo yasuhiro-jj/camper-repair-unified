@@ -14,7 +14,15 @@ try:
     from .cache_manager import cache_manager, cached_result
 except ImportError:
     # 相対インポートが失敗した場合の代替
-    from data_access.cache_manager import cache_manager, cached_result
+try:
+    from .cache_manager import cache_manager, cached_result
+except ImportError:
+    try:
+        from data_access.cache_manager import cache_manager, cached_result
+    except ImportError:
+        # フォールバック: 基本的な機能のみ提供
+        cache_manager = None
+        cached_result = lambda func: func
 
 # Streamlitのインポート（条件付き）
 try:
@@ -1390,4 +1398,5 @@ class NotionClient:
 
 # グローバルインスタンス
 notion_client = NotionClient()
+
 
