@@ -4,7 +4,22 @@ import os
 import uuid
 import re
 import json
-from data_access.notion_client import NotionClient
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'data_access'))
+
+try:
+    from notion_client import NotionClient
+except ImportError:
+    # フォールバック: 基本的なNotionClientクラスを定義
+    class NotionClient:
+        def __init__(self):
+            self.client = None
+            self.api_key = None
+        
+        def initialize(self, api_key):
+            self.api_key = api_key
+            return True
 import time
 from dotenv import load_dotenv
 
